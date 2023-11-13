@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reasoure\cammod" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Reasoure\cammod" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>$(BepInExAssemblyPath)\0Harmony.dll</HintPath>
     </Reference>
