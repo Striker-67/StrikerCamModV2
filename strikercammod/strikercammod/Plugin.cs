@@ -18,6 +18,8 @@ namespace strikercammod
         GameObject Camera;
         GameObject tpcbutton;
         GameObject secondpersoncam;
+        GameObject nextpage;
+        GameObject lastpage;
         GameObject Fcam;
 
 
@@ -61,15 +63,34 @@ namespace strikercammod
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = 90;
             Camera.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
             Camera.transform.position = new Vector3(-65.0436f, 11.9509f, -84.3991f);
-            tpcbutton = Camera.transform.Find("Model/buttons/TPC button/Cube (3)").gameObject;
-            secondpersoncam = Camera.transform.Find("Model/buttons/Cube (4)").gameObject;
-            Fcam = Camera.transform.Find("Model/buttons/Cube (5)").gameObject;
+            tpcbutton = Camera.transform.Find("Model/buttons/first page/TPC button/Cube (3)").gameObject;
+            secondpersoncam = Camera.transform.Find("Model/buttons/first page/Cube (4)").gameObject;
+            Fcam = Camera.transform.Find("Model/buttons/first page/Cube (5)").gameObject;
+            nextpage = Camera.transform.Find("Model/buttons/next page").gameObject;
+            lastpage = Camera.transform.Find("Model/buttons/last page").gameObject;
             tpcbutton.layer = 18;
+            nextpage.layer = 18;
+            lastpage.layer = 18;
             secondpersoncam.layer = 18;
             Fcam.layer = 18;
+
             tpcbutton.AddComponent<Keys>().cam = Camera;
+            nextpage.AddComponent<Keys>().nextbutton = nextpage;
+            lastpage.AddComponent<Keys>().lastbutton = lastpage;
             secondpersoncam.AddComponent<Keys>().cam = Camera;
             Fcam.AddComponent<Keys>().cam = Camera;
+
+            tpcbutton.GetComponent<Keys>().nextbutton = nextpage;
+            tpcbutton.GetComponent<Keys>().lastbutton = lastpage;
+            nextpage.GetComponent<Keys>().cam = Camera;
+            nextpage.GetComponent<Keys>().lastbutton = lastpage;
+            lastpage.GetComponent<Keys>().cam = Camera;
+            lastpage.GetComponent<Keys>().nextbutton = nextpage;
+            secondpersoncam.GetComponent<Keys>().nextbutton = nextpage;
+            secondpersoncam.GetComponent<Keys>().lastbutton = lastpage;
+
+
+
         }
                    
         public AssetBundle LoadAssetBundle(string path)

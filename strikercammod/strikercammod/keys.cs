@@ -6,7 +6,10 @@ public class Keys : MonoBehaviour
 {
     public string key;
     public GameObject cam;
-
+    public GameObject firstpage;
+    public GameObject secondpage;
+    public GameObject nextbutton;
+    public GameObject lastbutton;
  
 
     public bool buttonlclicked;
@@ -20,9 +23,13 @@ public class Keys : MonoBehaviour
 
     void Start()
     {
-        
         key = this.transform.name;
-       
+        firstpage = cam.transform.Find("Model/buttons/first page").gameObject;
+        secondpage = cam.transform.Find("Model/buttons/second page").gameObject;
+        
+        secondpage.SetActive(false);
+        lastbutton.SetActive(false);
+
 
 
     }
@@ -47,8 +54,7 @@ public class Keys : MonoBehaviour
             }
             if (key == "Cube (4)")
             {
-                // pos -1.4138 0.3514 -0.3654
-                // rot 10.184 80.341 0.0496
+
                 Debug.Log("TPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
@@ -58,14 +64,27 @@ public class Keys : MonoBehaviour
             }
             if (key == "Cube (5)")
             {
-                //pos -0.1138 0.1514 1.1346
-                //rot 358.184 180.239 0.0496
+
                 Debug.Log("TPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
                 cam.transform.localPosition = new Vector3(-0.1138f, 0.1514f, 1.1346f);
                 cam.transform.localRotation = Quaternion.Euler(358.184f, 180.239f, 0.0496f);
+            }
+            if (key == "next page")
+            {
+                lastbutton.SetActive(true);
+                nextbutton.SetActive(false);
+               firstpage.SetActive(false);
+               secondpage.SetActive(true);
+            }
+            if (key == "last page")
+            {
+                nextbutton.SetActive(true);
+                lastbutton.SetActive(false);
+                firstpage.SetActive(true);
+                secondpage.SetActive(false);
             }
         }
     }
