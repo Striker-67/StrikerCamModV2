@@ -1,5 +1,6 @@
 using GorillaLocomotion.Climbing;
 using strikercammod;
+using System.Collections;
 using UnityEngine;
 
 public class Keys : MonoBehaviour
@@ -10,7 +11,7 @@ public class Keys : MonoBehaviour
     public GameObject secondpage;
     public GameObject nextbutton;
     public GameObject lastbutton;
- 
+    GameObject doug;
 
     public bool buttonlclicked;
     public bool freecam = true;
@@ -26,9 +27,12 @@ public class Keys : MonoBehaviour
         key = this.transform.name;
         firstpage = cam.transform.Find("Model/buttons/first page").gameObject;
         secondpage = cam.transform.Find("Model/buttons/second page").gameObject;
-        
-        secondpage.SetActive(false);
-        lastbutton.SetActive(false);
+        doug = GameObject.Find("Floating Bug Holdable");
+        firstpage.SetActive(true);
+        secondpage.SetActive(true);
+        lastbutton.SetActive(true);
+        StartCoroutine("wait");
+
 
 
 
@@ -71,6 +75,26 @@ public class Keys : MonoBehaviour
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
                 cam.transform.localPosition = new Vector3(-0.1138f, 0.1514f, 1.1346f);
                 cam.transform.localRotation = Quaternion.Euler(358.184f, 180.239f, 0.0496f);
+            }
+            if (key == "dougcamtrigger")
+            {
+
+                Debug.Log("TPC hit");
+                freecam = false;
+                cam.transform.Find("Model").gameObject.SetActive(false);
+                cam.transform.parent = doug.transform;
+                cam.transform.localPosition = new Vector3(0.2575f - 0.0208f, 0.7414f);
+                cam.transform.localRotation = Quaternion.Euler(358.184f, 344.7418f, 0.0496f);
+            }
+            if (key == "First person cam")
+            {
+
+                Debug.Log("TPC hit");
+                freecam = false;
+                cam.transform.Find("Model").gameObject.SetActive(false);
+                cam.transform.parent = GorillaTagger.Instance.headCollider.transform;
+                cam.transform.localPosition = new Vector3(-0.0077f, - 0.1196f, - 0.0574f);
+                cam.transform.localRotation = Quaternion.Euler(1.9842f, 3.412f, 0.8496f);
             }
             if (key == "next page")
             {
@@ -119,6 +143,12 @@ public class Keys : MonoBehaviour
 
 
 
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(1);
+        secondpage.SetActive(false);
+        lastbutton.SetActive(false);
     }
 
 

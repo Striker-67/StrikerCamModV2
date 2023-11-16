@@ -21,6 +21,9 @@ namespace strikercammod
         GameObject nextpage;
         GameObject lastpage;
         GameObject Fcam;
+        GameObject dougcam;
+        GameObject fp;
+        GameObject shhhh;
 
 
 
@@ -68,18 +71,35 @@ namespace strikercammod
             Fcam = Camera.transform.Find("Model/buttons/first page/Cube (5)").gameObject;
             nextpage = Camera.transform.Find("Model/buttons/next page").gameObject;
             lastpage = Camera.transform.Find("Model/buttons/last page").gameObject;
+            dougcam = Camera.transform.Find("Model/buttons/second page/doug cam/Cube (3)").gameObject;
+            fp = Camera.transform.Find("Model/buttons/second page/First person cam").gameObject;
+            shhhh = Camera.transform.Find("Model/buttons/second page/for broxy").gameObject;
+            dougcam.name = ("dougcamtrigger");
             tpcbutton.layer = 18;
             nextpage.layer = 18;
             lastpage.layer = 18;
             secondpersoncam.layer = 18;
             Fcam.layer = 18;
+            dougcam.layer = 18;
+            fp.layer = 18;
+            shhhh.layer = 18;
+
 
             tpcbutton.AddComponent<Keys>().cam = Camera;
             nextpage.AddComponent<Keys>().nextbutton = nextpage;
             lastpage.AddComponent<Keys>().lastbutton = lastpage;
             secondpersoncam.AddComponent<Keys>().cam = Camera;
             Fcam.AddComponent<Keys>().cam = Camera;
+            fp.AddComponent<Keys>().cam = Camera;
+            dougcam.AddComponent<Keys>().cam = Camera;
+            shhhh.AddComponent<Keys>().cam = Camera;
 
+            fp.AddComponent<Keys>().lastbutton = lastpage;
+            dougcam.AddComponent<Keys>().lastbutton = lastpage;
+            shhhh.AddComponent<Keys>().lastbutton = lastpage;
+            fp.AddComponent<Keys>().nextbutton = nextpage;
+            dougcam.AddComponent<Keys>().nextbutton = nextpage;
+            shhhh.AddComponent<Keys>().nextbutton = nextpage;
             tpcbutton.GetComponent<Keys>().nextbutton = nextpage;
             tpcbutton.GetComponent<Keys>().lastbutton = lastpage;
             nextpage.GetComponent<Keys>().cam = Camera;
@@ -90,7 +110,7 @@ namespace strikercammod
             secondpersoncam.GetComponent<Keys>().lastbutton = lastpage;
 
 
-
+            Destroy(shhhh);
         }
                    
         public AssetBundle LoadAssetBundle(string path)
