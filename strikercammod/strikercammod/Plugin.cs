@@ -26,7 +26,11 @@ namespace strikercammod
         GameObject shhhh;
 
 
+        void Start()
+        {
 
+            Utilla.Events.GameInitialized += OnGameInitialized;
+        }
 
 
         void OnGameInitialized(object sender, EventArgs e)
@@ -71,12 +75,12 @@ namespace strikercammod
             dougcam.AddComponent<Keys>().cam = Camera;
             shhhh.AddComponent<Keys>().cam = Camera;
 
-            fp.AddComponent<Keys>().lastbutton = lastpage;
-            dougcam.AddComponent<Keys>().lastbutton = lastpage;
-            shhhh.AddComponent<Keys>().lastbutton = lastpage;
-            fp.AddComponent<Keys>().nextbutton = nextpage;
-            dougcam.AddComponent<Keys>().nextbutton = nextpage;
-            shhhh.AddComponent<Keys>().nextbutton = nextpage;
+            fp.GetComponent<Keys>().lastbutton = lastpage;
+            dougcam.GetComponent<Keys>().lastbutton = lastpage;
+            shhhh.GetComponent<Keys>().lastbutton = lastpage;
+            fp.GetComponent<Keys>().nextbutton = nextpage;
+            dougcam.GetComponent<Keys>().nextbutton = nextpage;
+ 
             tpcbutton.GetComponent<Keys>().nextbutton = nextpage;
             tpcbutton.GetComponent<Keys>().lastbutton = lastpage;
             nextpage.GetComponent<Keys>().cam = Camera;
@@ -108,21 +112,63 @@ namespace strikercammod
                     Camera.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
                     Camera.transform.Find("Model").gameObject.SetActive(true);
                     Camera.transform.Find("Model").GetComponentInChildren<Keys>().freecam = true;
-                  fp.AddComponent<Keys>().freecam = true;
-                  dougcam.AddComponent<Keys>().freecam = true;
-                   shhhh.AddComponent<Keys>().freecam = true;
-                  tpcbutton.GetComponent<Keys>().freecam = true;
-                  nextpage.GetComponent<Keys>().freecam = true;
-                  lastpage.GetComponent<Keys>().freecam = true;
-                 secondpersoncam.GetComponent<Keys>().freecam = true;
-
-
 
                 }
-                
+
 
             }
-           
+            if (ControllerInputPoller.instance.leftControllerGripFloat >= 1)
+            {
+                if (Fcam.GetComponent<Keys>().freecam == false)
+                {
+                    Camera.transform.parent = null;
+                    Camera.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
+                    Camera.transform.Find("Model").gameObject.SetActive(true);
+                   Fcam.GetComponent<Keys>().freecam = true;
+
+                }
+
+
+            }
+            if (ControllerInputPoller.instance.leftControllerGripFloat >= 1)
+            {
+                if (secondpersoncam.GetComponent<Keys>().freecam == false)
+                {
+                    Camera.transform.parent = null;
+                    Camera.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
+                    Camera.transform.Find("Model").gameObject.SetActive(true);
+                   secondpersoncam.GetComponent<Keys>().freecam = true;
+
+                }
+
+
+            }
+            if (ControllerInputPoller.instance.leftControllerGripFloat >= 1)
+            {
+                if (dougcam.GetComponent<Keys>().freecam == false)
+                {
+                    Camera.transform.parent = null;
+                    Camera.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
+                    Camera.transform.Find("Model").gameObject.SetActive(true);
+                   dougcam.GetComponent<Keys>().freecam = true;
+
+                }
+
+
+            }
+            if (ControllerInputPoller.instance.leftControllerGripFloat >= 1)
+            {
+                if (fp.GetComponent<Keys>().freecam == false)
+                {
+                    Camera.transform.parent = null;
+                    Camera.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
+                    Camera.transform.Find("Model").gameObject.SetActive(true);
+                    fp.GetComponent<Keys>().freecam = true;
+
+                }
+
+
+            }
         }
 
 

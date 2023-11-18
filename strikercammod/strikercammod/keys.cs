@@ -83,8 +83,8 @@ public class Keys : MonoBehaviour
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = doug.transform;
-                cam.transform.localPosition = new Vector3(0.2575f - 0.0208f, 0.7414f);
-                cam.transform.localRotation = Quaternion.Euler(358.184f, 344.7418f, 0.0496f);
+                cam.transform.localPosition = new Vector3(-0.0028f, - 0.1186f, 0.04f);
+                cam.transform.localRotation = Quaternion.Euler(358.084f, 0.1588f, 0.0496f);
             }
             if (key == "First person cam")
             {
