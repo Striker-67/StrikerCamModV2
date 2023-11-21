@@ -7,7 +7,7 @@ doug cam, and a sercet one(ill let yall find it ( :
 # Controls
 Left grip(once in any mode ex. thrid person etc brings back to your body)
 
-left primary(allows you hold the cam(if not inside a mode)
+hold frip near cammera to grab
 
 # download 
 downlod from releases and then put dll into your plugin folder
