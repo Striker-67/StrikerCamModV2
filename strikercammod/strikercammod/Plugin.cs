@@ -57,11 +57,11 @@ void onDisabled()
 
             if(!enabled)
             {
-             undosetup();
+              undosetup();
             }
             else
             {
-
+              redo(); 
             }
 
 
