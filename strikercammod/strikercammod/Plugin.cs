@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.configuration;
 using Cinemachine;
 using DevHoldableEngine;
 using System;
@@ -16,13 +17,25 @@ namespace strikercammod
     public class Plugin : BaseUnityPlugin
     {
         bool inRoom;
+        bool enabled;
         GameObject Camera;
+        privite ConfigEntry<float> FOV;
       
 
-
+void onEnabled()
+{
+  enabled = true;
+}
+void onDisabled()
+{
+  enabled = false;
+}
         void Start()
         {
-
+        FOV = config.Bind("FOV"
+                   "change fov via config"
+                   float
+                   "simple way to change fov");
             Utilla.Events.GameInitialized += OnGameInitialized;
         }
 
@@ -35,25 +48,42 @@ namespace strikercammod
             Camera = Instantiate(Camera);
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
             GorillaTagger.Instance.thirdPersonCamera.transform.parent = Camera.transform;
-            Destroy(GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>());
+            (GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().Enabled = false);
             GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(3.6648f, 0.0383f, - 1.3422f);
             GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 177.0001f, 0f);
-            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = 90;
+            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV.Value;
             Camera.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
             Camera.transform.position = new Vector3(-65.0436f, 11.9509f, -84.3991f);
 
-   
+            if(!enabled)
+            {
+             undosetup();
+            }
+            else
+            {
+
+            }
 
 
             Camera.AddComponent<Manager>().cam = Camera;
             
-            Camera.AddComponent<DevHoldable>().PickUp = true;
             if(Camera.GetComponent<Manager>() != null)
             {
                 Debug.Log("added manager");
             }
           
         }
+        void undosetup()
+        {
+            Camera.SetActive(false);
+             (GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().Enabled = true);
+        }
+        void redo()
+        {
+            Camera.SetActive(true);
+             (GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().Enabled = false);
+        }
+        
                    
         public AssetBundle LoadAssetBundle(string path)
         {

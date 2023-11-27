@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace strikercammod
+namespace strikercammod.Manager
 {
     public class Manager : MonoBehaviour
     {
