@@ -2,7 +2,7 @@
 this is the newest cam mod made by me
 this mod adds features such as 
 Third person, first person, second person(2D cam as named in game), front cam,
-doug cam, and a sercet one(ill let yall find it ( :
+doug cam
 
 # Controls
 (btw mode means anything like third person view)

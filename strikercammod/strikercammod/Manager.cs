@@ -16,6 +16,7 @@ namespace strikercammod.Manager
         public GameObject secondpage;
         public GameObject nextbutton;
         public GameObject lastbutton;
+        bool rightStickClick;
         GameObject doug;
         int children;
         bool isdoneloadingassets;
@@ -45,7 +46,6 @@ namespace strikercammod.Manager
             dougcam = cam.transform.Find("Model/buttons/second page/doug cam/Cube (3)").gameObject;
             fp = cam.transform.Find("Model/buttons/second page/First person cam").gameObject;
             dougcam.name = ("dougcamtrigger");
-            Debug.Log("Thank you so much for downloading my mod!");
 
 
 
@@ -103,6 +103,11 @@ namespace strikercammod.Manager
                 nextpage.SetActive(true);
                 secondpage.SetActive(false);
                 lastpage.SetActive(false);
+               
+                bool IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
+
+            
+                //Credits for lunakitty for this code
             }
 
         }
@@ -110,7 +115,9 @@ namespace strikercammod.Manager
 
         public void Update()
         {
-            if (ControllerInputPoller.instance.leftControllerGripFloat >= 1)
+            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_RightJoystickClick.GetState(SteamVR_Input_Sources.RightHand); }
+             else { ControllerInputPoller.instance.rightControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
+            if (rightStickClick)
             {
                 if (freecam == false)
                 {
