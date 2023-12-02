@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.XR;
 
 namespace strikercammod.Manager
 {
@@ -27,6 +28,7 @@ namespace strikercammod.Manager
         GameObject Fcam;
         GameObject dougcam;
         GameObject fp;
+        bool IsSteamVR;
         public bool buttonlclicked;
         public bool freecam = true;
         public int assetsloaded;
@@ -104,10 +106,7 @@ namespace strikercammod.Manager
                 secondpage.SetActive(false);
                 lastpage.SetActive(false);
                
-                bool IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
 
-            
-                //Credits for lunakitty for this code
             }
 
         }
@@ -115,8 +114,7 @@ namespace strikercammod.Manager
 
         public void Update()
         {
-            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_RightJoystickClick.GetState(SteamVR_Input_Sources.RightHand); }
-             else { ControllerInputPoller.instance.rightControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
+             rightStickClick = ControllerInputPoller.instance.rightControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick);
             if (rightStickClick)
             {
                 if (freecam == false)
