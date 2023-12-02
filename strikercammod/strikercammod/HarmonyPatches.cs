@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using strikercammod.info;
 using System;
 using System.Reflection;
 
@@ -13,7 +14,7 @@ namespace strikercammod
         private static Harmony instance;
 
         public static bool IsPatched { get; private set; }
-        public const string InstanceId = PluginInfo.GUID;
+        public const string InstanceId = main.GUID;
 
         internal static void ApplyHarmonyPatches()
         {
