@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using strikercammod.mainmanager;
 using UnityEngine;
 
 namespace strikercammod.buttons

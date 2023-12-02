@@ -1,4 +1,6 @@
-﻿using strikercammod.buttons;
+﻿using GorillaNetworking;
+using HarmonyLib;
+using strikercammod.buttons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +8,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
+using Valve.VR;
 
-namespace strikercammod.Manager
+namespace strikercammod.mainmanager
 {
     public class Manager : MonoBehaviour
     {
@@ -105,7 +108,10 @@ namespace strikercammod.Manager
                 nextpage.SetActive(true);
                 secondpage.SetActive(false);
                 lastpage.SetActive(false);
-               
+
+              
+                 IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
+
 
             }
 
@@ -114,7 +120,9 @@ namespace strikercammod.Manager
 
         public void Update()
         {
-             rightStickClick = ControllerInputPoller.instance.rightControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick);
+            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetState(SteamVR_Input_Sources.LeftHand); }
+            else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
+
             if (rightStickClick)
             {
                 if (freecam == false)

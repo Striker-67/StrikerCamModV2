@@ -9,7 +9,7 @@ using UnityEngine.PlayerLoop;
 using Utilla;
 using BepInEx.Configuration;
 using BepInEx;
-using strikercammod.Mainmanager;
+using strikercammod.mainmanager;
 using strikercammod.info;
 
 namespace strikercammod
@@ -67,7 +67,7 @@ namespace strikercammod
               redo(); 
             }
 
-
+            Camera.AddComponent<DevHoldable>();
             Camera.AddComponent<Manager>().cam = Camera;
             
             if(Camera.GetComponent<Manager>() != null)
