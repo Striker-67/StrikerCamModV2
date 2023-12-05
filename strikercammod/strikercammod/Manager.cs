@@ -123,14 +123,14 @@ namespace strikercammod.mainmanager
 
             if (rightStickClick)
             {
-                if (!freecam)
-                {
+                
+                
                     cam.transform.parent = null;
                     cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
                     cam.transform.Find("Model").gameObject.SetActive(true);
                     freecam = true;
 
-                }
+                
             }
             if(FOV > 130)
             {
