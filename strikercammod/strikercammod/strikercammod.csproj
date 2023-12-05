@@ -82,6 +82,9 @@
     <Reference Include="System.ServiceModel.Internals">
       <HintPath>$(GameAssemblyPath)\System.ServiceModel.Internals.dll</HintPath>
     </Reference>
+    <Reference Include="TMPLoader">
+      <HintPath>..\..\..\..\steam\steamapps\common\Gorilla Tag\BepInEx\TMPLoader\TMPLoader.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Animation.Rigging">
       <HintPath>$(GameAssemblyPath)\Unity.Animation.Rigging.dll</HintPath>
     </Reference>
@@ -96,6 +99,9 @@
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>$(GameAssemblyPath)\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\..\..\steam\steamapps\common\Gorilla Tag\BepInEx\TMPLoader\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>$(GameAssemblyPath)\Unity.Timeline.dll</HintPath>

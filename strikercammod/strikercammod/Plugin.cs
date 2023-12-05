@@ -22,7 +22,7 @@ namespace strikercammod
         bool inRoom;
         bool isenabled = true;
         GameObject Camera;
-        private ConfigEntry<float> FOV;
+
       
 
          void OnEnable()
@@ -43,10 +43,7 @@ namespace strikercammod
         void Start()
         {
 
-                   FOV = Config.Bind("FOV",
-                   "change fov via config",
-                   90f,
-                   "simple way to change fov");
+
             Utilla.Events.GameInitialized += OnGameInitialized;
         }
 
@@ -58,11 +55,12 @@ namespace strikercammod
             Camera = bundle.LoadAsset<GameObject>("cammod");
             Camera = Instantiate(Camera);
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
+
             GorillaTagger.Instance.thirdPersonCamera.transform.parent = Camera.transform;
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
-            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(-17.5024f, 0.7383f, 4.2542f);
-            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 352.2897f, 0f);
-            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV.Value;
+            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(4.794f, - 0.1035f, 11.5888f);
+            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+           
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             Camera.transform.position = new Vector3(-65.0436f, 11.8873f, - 84.3991f);
 

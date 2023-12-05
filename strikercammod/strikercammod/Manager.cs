@@ -8,7 +8,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
+using TMPro;
 using Valve.VR;
+using static OVRPlugin;
 
 namespace strikercammod.mainmanager
 {
@@ -27,7 +29,9 @@ namespace strikercammod.mainmanager
         GameObject lastpage;
         GameObject Fcam;
         GameObject dougcam;
+        float FOV = 90f;
         GameObject fp;
+        GameObject minisettings;
         bool IsSteamVR;
         public bool buttonlclicked;
         public bool freecam = true;
@@ -38,6 +42,7 @@ namespace strikercammod.mainmanager
 
             Debug.Log("adding buttons!");
             firstpage = cam.transform.Find("Model/buttons/First Page").gameObject;
+            minisettings = cam.transform.Find("Model/buttons/Quick Settings").gameObject;
             doug = GameObject.Find("Floating Bug Holdable");
             tpcbutton = cam.transform.Find("Model/buttons/First Page/Third Person Camera").gameObject;
             secondpersoncam = cam.transform.Find("Model/buttons/First Page/2D cam").gameObject;
@@ -62,7 +67,18 @@ namespace strikercammod.mainmanager
 
 
 
-            }  
+            }
+            foreach (BoxCollider g in minisettings.GetComponentsInChildren<BoxCollider>())
+            {
+
+
+
+
+                g.gameObject.AddComponent<btnmanager>();
+
+
+
+            }
             foreach (btnmanager g in firstpage.GetComponentsInChildren<btnmanager>())
             {
 
@@ -87,9 +103,7 @@ namespace strikercammod.mainmanager
             if (isdoneloadingassets)
             {
                 firstpage.SetActive(true);
-                secondpage.SetActive(true);
                 nextpage.SetActive(true);
-                secondpage.SetActive(false);
                 lastpage.SetActive(false);
 
               
@@ -103,12 +117,13 @@ namespace strikercammod.mainmanager
 
         public void Update()
         {
+            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetState(SteamVR_Input_Sources.LeftHand); }
             else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
 
             if (rightStickClick)
             {
-                if (freecam == false)
+                if (!freecam)
                 {
                     cam.transform.parent = null;
                     cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
@@ -117,6 +132,15 @@ namespace strikercammod.mainmanager
 
                 }
             }
+            if(FOV > 130)
+            {
+                FOV = 30f;
+            }
+            if (FOV < 30)
+            {
+                FOV = 130;
+            }
+            minisettings.transform.Find("FOV/CUR FOV").GetComponent<TextMeshPro>().text = FOV.ToString();
 
         }
 
@@ -133,8 +157,8 @@ namespace strikercammod.mainmanager
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
-                cam.transform.localPosition = new Vector3(-0.1138f, 0.4514f, -1.3654f);
-                cam.transform.localRotation = Quaternion.Euler(10.1839f, 10.6935f, 0.0496f);
+                cam.transform.localPosition = new Vector3(-0.0538f, 0.4514f, - 1.3554f);
+                cam.transform.localRotation = Quaternion.Euler(4.1839f, 90.9117f, 2.0496f);
             }
             if (name == "2D cam")
             {
@@ -143,8 +167,8 @@ namespace strikercammod.mainmanager
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
-                cam.transform.localPosition = new Vector3(-1.4138f, 0.3514f, -0.3654f);
-                cam.transform.localRotation = Quaternion.Euler(10.184f, 80.341f, 0.0496f);
+                cam.transform.localPosition = new Vector3(-1.4136f, 0.3509f, - 0.3654f);
+                cam.transform.localRotation = Quaternion.Euler(0.1841f, 161.3228f, 0.0496f);
             }
             if (name == "Front Cam")
             {
@@ -154,7 +178,7 @@ namespace strikercammod.mainmanager
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
                 cam.transform.localPosition = new Vector3(-0.1138f, 0.1514f, 1.1346f);
-                cam.transform.localRotation = Quaternion.Euler(358.184f, 180.239f, 0.0496f);
+                cam.transform.localRotation = Quaternion.Euler(0.1841f, 264.6863f, 0.0496f);
             }
             if (name == "Doug Cam")
             {
@@ -164,17 +188,17 @@ namespace strikercammod.mainmanager
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = doug.transform;
                 cam.transform.localPosition = new Vector3(-0.0028f, -0.1186f, 0.04f);
-                cam.transform.localRotation = Quaternion.Euler(358.084f, 0.1588f, 0.0496f);
+                cam.transform.localRotation = Quaternion.Euler(0.1841f, 96.0716f, 0.0496f);
             }
             if (name == "First person cam")
             {
 
-                Debug.Log("TPC hit");
+                Debug.Log("FPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
                 cam.transform.parent = GorillaTagger.Instance.headCollider.transform;
-                cam.transform.localPosition = new Vector3(-0.0077f, -0.1196f, -0.0574f);
-                cam.transform.localRotation = Quaternion.Euler(1.9842f, 3.412f, 0.8496f);
+                cam.transform.localPosition = new Vector3(0.0323f, -0.0796f, -0.0574f);
+                cam.transform.localRotation = Quaternion.Euler(359.2126f, 79.4568f, 0.9775f);
             }
             if (name == "Next Page")
             {
@@ -190,6 +214,31 @@ namespace strikercammod.mainmanager
                 firstpage.SetActive(true);
                 secondpage.SetActive(false);
             }
+            if (name == "Red")
+            {
+                cam.transform.Find("Model/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            if (name == "Black")
+            {
+                cam.transform.Find("Model/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            }
+            if (name == "Green")
+            {
+                cam.transform.Find("Model/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            if (name == "Blue")
+            {
+                cam.transform.Find("Model/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+            }
+            if(name == "minus fov")
+            {
+                FOV -= 1f;
+            }
+            if (name == "add fov")
+            {
+                FOV += 1f;
+            }
+            
         }
 
 
