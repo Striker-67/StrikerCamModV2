@@ -18,11 +18,8 @@ namespace strikercammod.mainmanager
         public GameObject cam;
         public GameObject firstpage;
         public GameObject secondpage;
-        public GameObject nextbutton;
-        public GameObject lastbutton;
         bool rightStickClick;
         GameObject doug;
-        int children;
         bool isdoneloadingassets;
         GameObject tpcbutton;
         GameObject secondpersoncam;
@@ -40,17 +37,16 @@ namespace strikercammod.mainmanager
            
 
             Debug.Log("adding buttons!");
-            firstpage = cam.transform.Find("Model/buttons/first page").gameObject;
-            secondpage = cam.transform.Find("Model/buttons/second page").gameObject;
+            firstpage = cam.transform.Find("Model/buttons/First Page").gameObject;
             doug = GameObject.Find("Floating Bug Holdable");
-            tpcbutton = cam.transform.Find("Model/buttons/first page/TPC button/Cube (3)").gameObject;
-            secondpersoncam = cam.transform.Find("Model/buttons/first page/Cube (4)").gameObject;
-            Fcam = cam.transform.Find("Model/buttons/first page/Cube (5)").gameObject;
-            nextpage = cam.transform.Find("Model/buttons/next page").gameObject;
-            lastpage = cam.transform.Find("Model/buttons/last page").gameObject;
-            dougcam = cam.transform.Find("Model/buttons/second page/doug cam/Cube (3)").gameObject;
-            fp = cam.transform.Find("Model/buttons/second page/First person cam").gameObject;
-            dougcam.name = ("dougcamtrigger");
+            tpcbutton = cam.transform.Find("Model/buttons/First Page/Third Person Camera").gameObject;
+            secondpersoncam = cam.transform.Find("Model/buttons/First Page/2D cam").gameObject;
+            Fcam = cam.transform.Find("Model/buttons/First Page/Front Cam").gameObject;
+            nextpage = cam.transform.Find("Model/buttons/Next Page").gameObject;
+            lastpage = cam.transform.Find("Model/buttons/Last Page").gameObject;
+            dougcam = cam.transform.Find("Model/buttons/First Page/Doug Cam").gameObject;
+            fp = cam.transform.Find("Model/buttons/First Page/First person cam").gameObject;
+
 
 
 
@@ -65,26 +61,13 @@ namespace strikercammod.mainmanager
                 g.gameObject.AddComponent<btnmanager>();
 
 
-                Debug.Log("got button on the First page " + g);
-
-            }
-            foreach (BoxCollider g in secondpage.GetComponentsInChildren<BoxCollider>())
-            {
-
-
-
-
-                g.gameObject.AddComponent<btnmanager>();
-                if (g.GetComponent<btnmanager>() != null)
-
-                    Debug.Log("got button on the First page " + g);
 
             }  
-            foreach (btnmanager g in secondpage.GetComponentsInChildren<btnmanager>())
+            foreach (btnmanager g in firstpage.GetComponentsInChildren<btnmanager>())
             {
 
                 assetsloaded += 1;
-                if (assetsloaded == 3)
+                if (assetsloaded == 6)
                 {
                     isdoneloadingassets = true;
                 }
@@ -112,7 +95,7 @@ namespace strikercammod.mainmanager
               
                  IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
 
-
+                // thanks lunakitty for the code
             }
 
         }
@@ -144,7 +127,7 @@ namespace strikercammod.mainmanager
 
         public void clicked(string name)
         {
-            if (name == "Cube (3)")
+            if (name == "Third Person Camera")
             {
                 Debug.Log("TPC hit");
                 freecam = false;
@@ -153,7 +136,7 @@ namespace strikercammod.mainmanager
                 cam.transform.localPosition = new Vector3(-0.1138f, 0.4514f, -1.3654f);
                 cam.transform.localRotation = Quaternion.Euler(10.1839f, 10.6935f, 0.0496f);
             }
-            if (name == "Cube (4)")
+            if (name == "2D cam")
             {
 
                 Debug.Log("TPC hit");
@@ -163,7 +146,7 @@ namespace strikercammod.mainmanager
                 cam.transform.localPosition = new Vector3(-1.4138f, 0.3514f, -0.3654f);
                 cam.transform.localRotation = Quaternion.Euler(10.184f, 80.341f, 0.0496f);
             }
-            if (name == "Cube (5)")
+            if (name == "Front Cam")
             {
 
                 Debug.Log("TPC hit");
@@ -173,7 +156,7 @@ namespace strikercammod.mainmanager
                 cam.transform.localPosition = new Vector3(-0.1138f, 0.1514f, 1.1346f);
                 cam.transform.localRotation = Quaternion.Euler(358.184f, 180.239f, 0.0496f);
             }
-            if (name == "dougcamtrigger")
+            if (name == "Doug Cam")
             {
 
                 Debug.Log("TPC hit");
@@ -193,14 +176,14 @@ namespace strikercammod.mainmanager
                 cam.transform.localPosition = new Vector3(-0.0077f, -0.1196f, -0.0574f);
                 cam.transform.localRotation = Quaternion.Euler(1.9842f, 3.412f, 0.8496f);
             }
-            if (name == "next page")
+            if (name == "Next Page")
             {
                 lastpage.SetActive(true);
                 nextpage.SetActive(false);
                 firstpage.SetActive(false);
                 secondpage.SetActive(true);
             }
-            if (name == "last page")
+            if (name == "Last Page")
             {
                 nextpage.SetActive(true);
                 lastpage.SetActive(false);

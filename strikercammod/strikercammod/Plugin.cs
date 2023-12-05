@@ -25,12 +25,20 @@ namespace strikercammod
         private ConfigEntry<float> FOV;
       
 
-    void OnEnable()
-    {
-            recheck();
+         void OnEnable()
+         {
             isenabled = true;
-    }
-        void OnDisable() { isenabled = false; recheck(); }
+              redo();
+            Debug.Log(isenabled);
+
+
+         }
+        void OnDisable() 
+        {
+            isenabled = false;
+            undosetup();
+            Debug.Log(isenabled);
+        }
 
         void Start()
         {
@@ -52,11 +60,11 @@ namespace strikercammod
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
             GorillaTagger.Instance.thirdPersonCamera.transform.parent = Camera.transform;
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
-            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(3.6648f, 0.0383f, - 1.3422f);
-            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 177.0001f, 0f);
+            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(-17.5024f, 0.7383f, 4.2542f);
+            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 352.2897f, 0f);
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV.Value;
-            Camera.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
-            Camera.transform.position = new Vector3(-65.0436f, 11.9509f, -84.3991f);
+            Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            Camera.transform.position = new Vector3(-65.0436f, 11.8873f, - 84.3991f);
 
             if(!isenabled)
             {
@@ -77,24 +85,15 @@ namespace strikercammod
           
         }
 
-        void recheck()
-        {
-            if (!isenabled)
-            {
-                undosetup();
-            }
-            else
-            {
-                redo();
-            }
-        }
         void undosetup()
         {
+            Debug.Log("d");
             Camera.SetActive(false);
              GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = true;
         }
         void redo()
         {
+            Debug.Log("enabled");
             Camera.SetActive(true);
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
         }
