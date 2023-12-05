@@ -7,7 +7,7 @@ doug cam
 # Controls
 (btw mode means anything like third person view)
 
-Left grip(once in any mode ex. thrid person etc brings back to your body)
+right stick(once in any mode ex. thrid person etc brings back to your body)
 
 hold Grip near camera to grab
 
