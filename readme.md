@@ -1,5 +1,5 @@
 # Striker cam mod
-[![Github All Releases](https://img.shields.io/github/downloads/Striker-67/striker cam mod/total.svg)]()
+
 
 this is the newest cam mod made by me
 this mod adds features such as 
