@@ -17,7 +17,7 @@ hold Grip near camera to grab
 downlod from releases and then put dll into your plugin folder
 
 # credits!
-chin and pl2w foe buttons
+chin and pl2w for buttons
 
 dev for the holdable engine!
 
