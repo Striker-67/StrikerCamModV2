@@ -11,6 +11,16 @@ using BepInEx.Configuration;
 using BepInEx;
 using strikercammod.mainmanager;
 using strikercammod.info;
+using GorillaNetworking;
+using Photon.Pun;
+using System.Collections;
+using UnityEngine.UI;
+using HarmonyLib;
+using System.Collections.Generic;
+using UnityEngine.Assertions;
+using UnityEngine.Animations.Rigging;
+using GorillaExtensions;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace strikercammod
 {
@@ -21,19 +31,24 @@ namespace strikercammod
     {
         bool inRoom;
         bool isenabled = true;
+        public GameObject vrrigs;
         GameObject Camera;
+        GameObject camscreen;
+        GameObject PCSCREEN;
+        public List<GameObject> player;
+        GameObject ThirdPersonCamera;
 
-      
 
-         void OnEnable()
-         {
+
+        void OnEnable()
+        {
             isenabled = true;
-              redo();
+            redo();
             Debug.Log(isenabled);
 
 
-         }
-        void OnDisable() 
+        }
+        void OnDisable()
         {
             isenabled = false;
             undosetup();
@@ -50,53 +65,59 @@ namespace strikercammod
 
         void OnGameInitialized(object sender, EventArgs e)
         {
+            ThirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera;
+            PCSCREEN = GorillaTagger.Instance.thirdPersonCamera.transform.Find("Shoulder Camera").gameObject;
             Debug.Log("setting stuff up!");
             var bundle = LoadAssetBundle("strikercammod.Reasoure.cammod");
             Camera = bundle.LoadAsset<GameObject>("cammod");
             Camera = Instantiate(Camera);
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
+            ThirdPersonCamera.transform.parent = Camera.transform;
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
+            PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
+            PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
-            GorillaTagger.Instance.thirdPersonCamera.transform.parent = Camera.transform;
-            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
-            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(4.794f, - 0.1035f, 11.5888f);
-            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
-           
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            Camera.transform.position = new Vector3(-65.0436f, 11.8873f, - 84.3991f);
-
-            if(!isenabled)
+            Camera.transform.position = new Vector3(-65.0436f, 11.8873f, -84.3991f);
+            camscreen = Camera.transform.Find("Model/Camera").gameObject;
+            if (!isenabled)
             {
-              undosetup();
+                undosetup();
             }
             else
             {
-              redo(); 
+                redo();
             }
 
             Camera.AddComponent<DevHoldable>();
             Camera.AddComponent<Manager>().cam = Camera;
-            
-            if(Camera.GetComponent<Manager>() != null)
+            Camera.GetComponent<Manager>().PCSCREEN = PCSCREEN;
+            Camera.GetComponent<Manager>().CAMSCREEN = camscreen;
+            if (Camera.GetComponent<Manager>() != null)
             {
                 Debug.Log("added manager");
             }
-          
+
+           
         }
+
 
         void undosetup()
         {
-            Debug.Log("d");
+            Debug.Log("disabled");
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = true;
             Camera.SetActive(false);
-             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = true;
+
         }
         void redo()
         {
             Debug.Log("enabled");
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
             Camera.SetActive(true);
-            GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
+
         }
-        
-                   
+
+
         public AssetBundle LoadAssetBundle(string path)
         {
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
@@ -104,9 +125,31 @@ namespace strikercammod
             stream.Close();
             return bundle;
         }
+        [ModdedGamemodeJoin]
+        public void OnJoin(string gamemode)
+        {
 
-        
+            Debug.Log("JOINED");
+            FindAnyObjectByType<Manager>().addplayers();
+            FindAnyObjectByType<Manager>().inmoddedroom = true;
+            
+
+        }
+        [ModdedGamemodeLeave]
+        public void OnLeave(string gamemode)
+        {
+            FindAnyObjectByType<Manager>().Clear();
+            Camera.transform.parent = null;
+            FindAnyObjectByType<Manager>().inmoddedroom = false;
+        }
+
+
+        // below is all code made by kyle the scientist
+
+
 
 
     }
 }
+
+

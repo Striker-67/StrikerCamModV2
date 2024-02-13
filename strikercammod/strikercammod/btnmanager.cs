@@ -13,9 +13,13 @@ namespace strikercammod.buttons
             BoxCollider boxCollider = GetComponent<BoxCollider>();
             boxCollider.isTrigger = true;
             gameObject.layer = 18;
-
-
-  
+            mainmanager.Manager manager = FindAnyObjectByType<Manager>();
+            if(this.gameObject.GetComponent<BoxCollider>().isTrigger & this.gameObject.layer == 18)
+            {
+                manager.assetsloaded += 1;
+                manager.check();
+            }
+           
 
             onPressButton = new UnityEngine.Events.UnityEvent();
             onPressButton.AddListener(new UnityEngine.Events.UnityAction(ButtonActivation));
