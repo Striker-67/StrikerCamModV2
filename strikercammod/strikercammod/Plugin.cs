@@ -76,7 +76,7 @@ namespace strikercammod
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
             PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
             PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-
+           
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             Camera.transform.position = new Vector3(-65.0436f, 11.8873f, -84.3991f);
             camscreen = Camera.transform.Find("Model/Camera").gameObject;
@@ -99,6 +99,15 @@ namespace strikercammod
             }
 
            
+        }
+        public void Update()
+        {
+            if (!Camera.transform.parent.gameObject.activeSelf)
+            {
+                Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
+                camscreen.transform.localScale = new Vector3(1f, 1f, .1f);
+                Camera.transform.parent = null;
+            }
         }
 
 

@@ -155,7 +155,9 @@ namespace strikercammod.mainmanager
             {
                 Debug.Log("got button last page");
             }
-           
+           firstpage.SetActive(true);
+           secondpage.SetActive(false);
+           thirdpage.SetActive(false);
 
         }
         
@@ -224,207 +226,211 @@ namespace strikercammod.mainmanager
             if (!cleared)
             {
 
-
                 Debug.Log("working");
                 index = 0;
                 foreach (VRRig g in GorillaParent.instance.vrrigs)
                 {
                     if (index <= 10)
                     {
-
-
-
-
-
-                        if (!g.gameObject.active)
+                        if (!firstpage.activeSelf)
                         {
-                            Debug.Log("not player");
-                            players.Remove(g.gameObject);
-                            index -= 1;
-                        }
-                        else
-                        {
-                            players.Add(g.gameObject);
-                            if (g.name == "Local Gorilla Player")
+
+
+
+
+
+
+
+                            if (!g.gameObject.active)
                             {
+                                Debug.Log("not player");
                                 players.Remove(g.gameObject);
                                 index -= 1;
                             }
-                            else if (index == 0)
+                            else
                             {
-                                if (g.gameObject.activeSelf)
+                                players.Add(g.gameObject);
+                                if (g.name == "Local Gorilla Player")
                                 {
-                                    secondpage.transform.Find("1").gameObject.SetActive(true);
-                                    secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                    players.Remove(g.gameObject);
+                                    index -= 1;
+                                }
+                                else if (index == 0)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("1").gameObject.SetActive(true);
+                                        secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("1").gameObject.SetActive(false);
+                                    }
 
                                 }
-                                else
+                                if (index == 1)
                                 {
-                                    secondpage.transform.Find("1").gameObject.SetActive(false);
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("2").gameObject.SetActive(true);
+                                        secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("2").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 2)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("3").gameObject.SetActive(true);
+                                        secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("3").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 3)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("4").gameObject.SetActive(true);
+                                        secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("4").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 4)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("5").gameObject.SetActive(true);
+                                        secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("5").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 5)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("6").gameObject.SetActive(true);
+                                        secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("6").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 6)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("7").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("7").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 7)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("8").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("8").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 8)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("9").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("9").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 9)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("10").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("10").gameObject.SetActive(false);
+                                    }
+
                                 }
 
+
+                                index++;
                             }
-                            if (index == 1)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("2").gameObject.SetActive(true);
-                                    secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("2").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 2)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("3").gameObject.SetActive(true);
-                                    secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("3").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 3)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("4").gameObject.SetActive(true);
-                                    secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("4").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 4)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("5").gameObject.SetActive(true);
-                                    secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("5").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 5)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("6").gameObject.SetActive(true);
-                                    secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("6").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 6)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("7").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("7").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 7)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("8").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("8").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 8)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("9").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("9").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 9)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("10").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("10").gameObject.SetActive(false);
-                                }
-
-                            }
 
 
-                            index++;
+
+
+
+
+
+                            Debug.Log("added");
+                        }
+
+                        else
+                        {
+                            index = 10;
                         }
 
 
 
-
-
-
-
-                        Debug.Log("added");
                     }
-
-                    else
-                    {
-                        index = 10;
-                    }
-
-
-
                 }
             }
             else
             {
-                secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
+                secondpage.transform.Find("1").gameObject.SetActive(false);
+                secondpage.transform.Find("2").gameObject.SetActive(false);
+                secondpage.transform.Find("3").gameObject.SetActive(false);
+                secondpage.transform.Find("4").gameObject.SetActive(false);
+                secondpage.transform.Find("5").gameObject.SetActive(false);
+                secondpage.transform.Find("6").gameObject.SetActive(false);
+                thirdpage.transform.Find("7").gameObject.SetActive(false);
+                thirdpage.transform.Find("8").gameObject.SetActive(false);
+                thirdpage.transform.Find("9").gameObject.SetActive(false);
+                thirdpage.transform.Find("10").gameObject.SetActive(false);
             }
           
         }
@@ -434,16 +440,16 @@ namespace strikercammod.mainmanager
             
                 players.Clear();
             cleared = true;
-            secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-            thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
+            secondpage.transform.Find("1").gameObject.SetActive(false);
+            secondpage.transform.Find("2").gameObject.SetActive(false);
+            secondpage.transform.Find("3").gameObject.SetActive(false);
+            secondpage.transform.Find("4").gameObject.SetActive(false);
+            secondpage.transform.Find("5").gameObject.SetActive(false);
+            secondpage.transform.Find("6").gameObject.SetActive(false);
+            thirdpage.transform.Find("7").gameObject.SetActive(false);
+            thirdpage.transform.Find("8").gameObject.SetActive(false);
+            thirdpage.transform.Find("9").gameObject.SetActive(false);
+            thirdpage.transform.Find("10").gameObject.SetActive(false);
         }
 
         public void Update()
@@ -455,22 +461,24 @@ namespace strikercammod.mainmanager
                 {
                     addplayers();
                 }
-                else
-                {
-                    Clear();
-                    secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                    thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = "player is not in room";
-                }
+
                
             }
+            else
+            {
+                Clear();
+                secondpage.transform.Find("1").gameObject.SetActive(false);
+                secondpage.transform.Find("2").gameObject.SetActive(false);
+                secondpage.transform.Find("3").gameObject.SetActive(false);
+                secondpage.transform.Find("4").gameObject.SetActive(false);
+                secondpage.transform.Find("5").gameObject.SetActive(false);
+                secondpage.transform.Find("6").gameObject.SetActive(false);
+                thirdpage.transform.Find("7").gameObject.SetActive(false);
+                thirdpage.transform.Find("8").gameObject.SetActive(false);
+                thirdpage.transform.Find("9").gameObject.SetActive(false);
+                thirdpage.transform.Find("10").gameObject.SetActive(false);
+            }
+            
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             cam.GetComponentInChildren<Camera>().fieldOfView = FOV;
             CAMSCREEN.GetComponentInChildren<Camera>().fieldOfView = FOV;
@@ -480,7 +488,7 @@ namespace strikercammod.mainmanager
             if (rightStickClick)
             {
 
-
+                cam.transform.localScale = new Vector3(.1f, .1f, .1f);
                 cam.transform.parent = null;
                 cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
                 cam.transform.Find("Model").gameObject.SetActive(true);
