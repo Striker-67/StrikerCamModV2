@@ -1,5 +1,5 @@
 # Striker cam mod
-
+here a video for everthing [Video](https://youtu.be/t5ZfbABWtSU?si=QL7T8xpWw6sHkNIZ)
 
 this is the newest cam mod made by me
 this mod adds features such as 
