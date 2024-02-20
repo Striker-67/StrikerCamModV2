@@ -89,7 +89,7 @@ namespace strikercammod
                 redo();
             }
 
-            Camera.AddComponent<DevHoldable>();
+            Camera.AddComponent<DevHoldable>().camera = Camera;
             Camera.AddComponent<Manager>().cam = Camera;
             Camera.GetComponent<Manager>().PCSCREEN = PCSCREEN;
             Camera.GetComponent<Manager>().CAMSCREEN = camscreen;
@@ -102,10 +102,12 @@ namespace strikercammod
         }
         public void Update()
         {
-            if (!Camera.transform.parent.gameObject.activeSelf)
+
+
+             if(!Camera.transform.parent.gameObject.activeSelf)
             {
                 Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
-                camscreen.transform.localScale = new Vector3(1f, 1f, .1f);
+                Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
                 Camera.transform.parent = null;
             }
         }
@@ -148,7 +150,7 @@ namespace strikercammod
         public void OnLeave(string gamemode)
         {
             FindAnyObjectByType<Manager>().Clear();
-            Camera.transform.parent = null;
+        
             FindAnyObjectByType<Manager>().inmoddedroom = false;
         }
 

@@ -17,10 +17,10 @@ namespace DevHoldableEngine
         public float
             GrabDistance = 0.15f,
             ThrowForce = 1.75f;
-
+        public GameObject camera;
         public virtual void OnGrab(bool isLeft)
         {
-
+            camera.transform.localScale = new Vector3(.1f, .1f, .1f);
         }
 
         public virtual void OnDrop(bool isLeft)
