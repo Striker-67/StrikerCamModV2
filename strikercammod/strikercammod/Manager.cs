@@ -233,199 +233,199 @@ namespace strikercammod.mainmanager
                 index = 0;
                 foreach (VRRig g in GorillaParent.instance.vrrigs)
                 {
-                    players.Add(g.gameObject);
-                    if (g.isOfflineVRRig)
-                    {
-                        players.Remove(g.gameObject);
-                        index -= 1;
-                    }
+                   
 
-                    if (index <= 10)
+                    if (!g.isOfflineVRRig)
                     {
+                        players.Add(g.gameObject);
 
-                        if (!firstpage.activeSelf)
+                        if (index <= 10)
                         {
 
-
-                           
-
-
-
-
-
-
-                             if (!g.gameObject.active)
+                            if (!firstpage.activeSelf)
                             {
-                                Debug.Log("not player");
-                                players.Remove(g.gameObject);
-                                index -= 1;
+
+
+
+
+
+
+
+
+
+                                if (!g.gameObject.active)
+                                {
+                                    Debug.Log("not player");
+                                    players.Remove(g.gameObject);
+                                    index -= 1;
+                                }
+
+
+
+
+                                if (index == 0)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("1").gameObject.SetActive(true);
+                                        secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("1").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("1").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 1)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("2").gameObject.SetActive(true);
+                                        secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("2").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("2").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 2)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("3").gameObject.SetActive(true);
+                                        secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("3").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("3").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 3)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("4").gameObject.SetActive(true);
+                                        secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("4").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("4").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 4)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("5").gameObject.SetActive(true);
+                                        secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("5").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("5").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 5)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        secondpage.transform.Find("6").gameObject.SetActive(true);
+                                        secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        secondpage.transform.Find("6").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        secondpage.transform.Find("6").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 6)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("7").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        thirdpage.transform.Find("7").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("7").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 7)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("8").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        thirdpage.transform.Find("8").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("8").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 8)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("9").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        thirdpage.transform.Find("9").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("9").gameObject.SetActive(false);
+                                    }
+
+                                }
+                                if (index == 9)
+                                {
+                                    if (g.gameObject.activeSelf)
+                                    {
+                                        thirdpage.transform.Find("10").gameObject.SetActive(true);
+                                        thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
+                                        thirdpage.transform.Find("10").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
+                                    }
+                                    else
+                                    {
+                                        thirdpage.transform.Find("10").gameObject.SetActive(false);
+                                    }
+
+                                }
+
+
+                                index++;
                             }
 
 
 
 
-                            if (index == 0)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("1").gameObject.SetActive(true);
-                                    secondpage.transform.Find("1").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("1").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("1").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 1)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("2").gameObject.SetActive(true);
-                                    secondpage.transform.Find("2").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("2").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("2").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 2)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("3").gameObject.SetActive(true);
-                                    secondpage.transform.Find("3").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("3").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("3").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 3)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("4").gameObject.SetActive(true);
-                                    secondpage.transform.Find("4").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("4").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("4").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 4)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("5").gameObject.SetActive(true);
-                                    secondpage.transform.Find("5").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("5").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("5").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 5)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    secondpage.transform.Find("6").gameObject.SetActive(true);
-                                    secondpage.transform.Find("6").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    secondpage.transform.Find("6").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    secondpage.transform.Find("6").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 6)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("7").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("7").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    thirdpage.transform.Find("7").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("7").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 7)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("8").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("8").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    thirdpage.transform.Find("8").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("8").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 8)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("9").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("9").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    thirdpage.transform.Find("9").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("9").gameObject.SetActive(false);
-                                }
-
-                            }
-                            if (index == 9)
-                            {
-                                if (g.gameObject.activeSelf)
-                                {
-                                    thirdpage.transform.Find("10").gameObject.SetActive(true);
-                                    thirdpage.transform.Find("10").gameObject.GetComponentInChildren<TextMeshPro>().text = g.playerText.text;
-                                    thirdpage.transform.Find("10").gameObject.GetComponent<MeshRenderer>().material.color = g.playerColor;
-                                }
-                                else
-                                {
-                                    thirdpage.transform.Find("10").gameObject.SetActive(false);
-                                }
-
-                            }
 
 
-                            index++;
+
+                            Debug.Log("added");
+                        }
+
+                        else
+                        {
+                            index = 10;
                         }
 
 
 
-
-
-
-
-                        Debug.Log("added");
                     }
-
-                    else
-                    {
-                        index = 10;
-                    }
-
-
-
                 }
             }
         
