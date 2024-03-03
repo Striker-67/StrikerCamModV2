@@ -20,7 +20,10 @@ namespace DevHoldableEngine
         public GameObject camera;
         public virtual void OnGrab(bool isLeft)
         {
+            
+            camera.transform.Find("Model").gameObject.SetActive(true);
             camera.transform.localScale = new Vector3(.1f, .1f, .1f);
+           
         }
 
         public virtual void OnDrop(bool isLeft)

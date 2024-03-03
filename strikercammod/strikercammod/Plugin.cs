@@ -78,7 +78,8 @@ namespace strikercammod
             PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
            
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            Camera.transform.position = new Vector3(-65.0436f, 11.8873f, -84.3991f);
+            Camera.transform.position = new Vector3(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y"), PlayerPrefs.GetFloat("z"));
+            Camera.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("rx"), PlayerPrefs.GetFloat("ry"), PlayerPrefs.GetFloat("rz"));
             camscreen = Camera.transform.Find("Model/Camera").gameObject;
             if (!isenabled)
             {
@@ -97,8 +98,36 @@ namespace strikercammod
             {
                 Debug.Log("added manager");
             }
+            if(PlayerPrefs.GetString("color") == "Color.black")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.red")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.green")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.blue")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+            }
+            if (PlayerPrefs.GetString("trail") == "false")
+            {
+                PlayerPrefs.SetString("trail", "false");
+                Camera.transform.Find("Model/GameObject").gameObject.SetActive(false);
+                Camera.GetComponent<Manager>().trailclcik = true;
+            }
+            else
+            {
+                PlayerPrefs.SetString("trail", "true");
+                Camera.transform.Find("Model/GameObject").gameObject.SetActive(true);
+               Camera.GetComponent<Manager>().trailclcik = false;
+            }
 
-           
+
         }
         public void Update()
         {
@@ -106,9 +135,12 @@ namespace strikercammod
 
              if(!Camera.transform.parent.gameObject.activeSelf)
             {
+                
+                Camera.transform.Find("Model").gameObject.SetActive(true);
                 Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                 Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
                 Camera.transform.parent = null;
+                
             }
         }
 

@@ -18,12 +18,16 @@ using Utilla;
 using Photon.Realtime;
 using GorillaExtensions;
 using Steamworks;
+using System.Threading;
+using System.Timers;
+using Unity.Mathematics;
 
 namespace strikercammod.mainmanager
 {
 
     public class Manager : MonoBehaviourPunCallbacks
     {
+        float timer = 0f;
         public string key;
         public GameObject cam;
         public GameObject firstpage;
@@ -41,7 +45,7 @@ namespace strikercammod.mainmanager
         float FOV = 90f;
         GameObject fp;
         GameObject minisettings;
-        bool trailclcik = false;
+        public bool trailclcik = false;
         GameObject player;
         bool IsSteamVR;
         public bool buttonlclicked;
@@ -160,10 +164,10 @@ namespace strikercammod.mainmanager
             firstpage.SetActive(true);
             secondpage.SetActive(false);
             thirdpage.SetActive(false);
-
+         
         }
 
-         void OnGUI()
+        /* void OnGUI()
          {
              GUI.Box(new Rect(30f, 50f, 170f, 270f), "Striker's Camera Mod");
              if (GUI.Button(new Rect(35f, 70f, 160f, 20f), "UNPARENT"))
@@ -172,15 +176,17 @@ namespace strikercammod.mainmanager
                  cam.transform.parent = null;
                  cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
                  cam.transform.Find("Model").gameObject.SetActive(true);
+
                  freecam = true;
 
              }
+            GUI.Label(new Rect(30f, 50f, 170f, 270f), "X " + PlayerPrefs.GetFloat("rx").ToString() + " Y " + PlayerPrefs.GetFloat("ry").ToString() + " Z " + PlayerPrefs.GetFloat("rz").ToString());
          }
-         
+        */ 
 
         public void check()
         {
-            if (assetsloaded == 41)
+            if (assetsloaded == 42)
             {
                 isdoneloadingassets = true;
             }
@@ -464,7 +470,7 @@ namespace strikercammod.mainmanager
 
         public void Update()
         {
-            
+
             if (PhotonNetwork.InRoom)
             {
                 if (inmoddedroom)
@@ -571,6 +577,7 @@ namespace strikercammod.mainmanager
                 cam.transform.parent = GorillaTagger.Instance.bodyCollider.transform;
                 cam.transform.localPosition = new Vector3(-0.0538f, 0.4514f, -1.3554f);
                 cam.transform.localRotation = Quaternion.Euler(4.1839f, 90.9117f, 2.0496f);
+
                 CAMSCREEN.transform.localPosition = new Vector3(-0.633f, 0.847f, 0.002f);
                 CAMSCREEN.transform.localRotation = Quaternion.Euler(0f, 262.4698f, 0f);
                 PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
@@ -596,11 +603,13 @@ namespace strikercammod.mainmanager
              
                 if (!trailclcik)
                 {
+                    PlayerPrefs.SetString("trail", "false");
                     cam.transform.Find("Model/GameObject").gameObject.SetActive(false);
                     trailclcik = true;
                 }
                 else
                 {
+                    PlayerPrefs.SetString("trail", "true");
                     cam.transform.Find("Model/GameObject").gameObject.SetActive(true);
                     trailclcik = false;
                 }
@@ -670,6 +679,7 @@ namespace strikercammod.mainmanager
 
 
             }
+
             else if (name == "Last Page")
             {
 
@@ -828,18 +838,22 @@ namespace strikercammod.mainmanager
             else if (name == "Red")
             {
                 cam.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                PlayerPrefs.SetString("color", "Color.red");
             }
             else if(name == "Black")
             {
                 cam.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.black;
+                PlayerPrefs.SetString("color", "Color.black");
             }
            else if (name == "Green")
             {
                 cam.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+                PlayerPrefs.SetString("color", "Color.green");
             }
             else if (name == "Blue")
             {
                 cam.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+                PlayerPrefs.SetString("color", "Color.blue");
             }
             else if (name == "minus fov")
             {
@@ -849,9 +863,23 @@ namespace strikercammod.mainmanager
             {
                 FOV += 1f;
             }
+            else if (name == "save pos")
+            {
+                savepos();
+            }
 
 
         }
+        private void savepos()
+        {
+            PlayerPrefs.SetFloat("x", cam.transform.position.x);
+            PlayerPrefs.SetFloat("y", cam.transform.position.y);
+            PlayerPrefs.SetFloat("z", cam.transform.position.z);
+            PlayerPrefs.SetFloat("rx", cam.transform.rotation.eulerAngles.x);
+            PlayerPrefs.SetFloat("ry", cam.transform.rotation.eulerAngles.y);
+            PlayerPrefs.SetFloat("rz", cam.transform.rotation.eulerAngles.z);
+        }
+
 
 
 
