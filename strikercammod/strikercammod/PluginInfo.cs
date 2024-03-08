@@ -7,6 +7,6 @@
     {
         public const string GUID = "com.striker.gorillatag.strikercammod";
         public const string Name = "strikercammod";
-        public const string Version = "1.0.5";
+        public const string Version = "1.0.9";
     }
 }

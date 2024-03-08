@@ -65,7 +65,7 @@ namespace strikercammod.mainmanager
         void Start()
         {
 
-
+            IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
             Debug.Log("adding buttons!");
             firstpage = cam.transform.Find("Model/buttons/First Page").gameObject;
             minisettings = cam.transform.Find("Model/buttons/Quick Settings").gameObject;
@@ -167,7 +167,7 @@ namespace strikercammod.mainmanager
          
         }
 
-        /* void OnGUI()
+      /*  void OnGUI()
          {
              GUI.Box(new Rect(30f, 50f, 170f, 270f), "Striker's Camera Mod");
              if (GUI.Button(new Rect(35f, 70f, 160f, 20f), "UNPARENT"))
@@ -180,9 +180,10 @@ namespace strikercammod.mainmanager
                  freecam = true;
 
              }
-            GUI.Label(new Rect(30f, 50f, 170f, 270f), "X " + PlayerPrefs.GetFloat("rx").ToString() + " Y " + PlayerPrefs.GetFloat("ry").ToString() + " Z " + PlayerPrefs.GetFloat("rz").ToString());
+           
          }
-        */ 
+       */
+        
 
         public void check()
         {
@@ -200,7 +201,7 @@ namespace strikercammod.mainmanager
                 Debug.Log("is done");
 
 
-                IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
+               
 
                 // thanks lunakitty for the code
             }
@@ -470,7 +471,16 @@ namespace strikercammod.mainmanager
 
         public void Update()
         {
-
+            if (!freecam)
+            {
+                DevHoldableEngine.DevHoldable grabbing = FindAnyObjectByType<DevHoldableEngine.DevHoldable>();
+                grabbing.enabled = false;
+            }
+            else
+            {
+                DevHoldableEngine.DevHoldable grabbing = FindAnyObjectByType<DevHoldableEngine.DevHoldable>();
+                grabbing.enabled = true;
+            }
             if (PhotonNetwork.InRoom)
             {
                 if (inmoddedroom)
@@ -500,17 +510,12 @@ namespace strikercammod.mainmanager
             CAMSCREEN.GetComponentInChildren<Camera>().fieldOfView = FOV;
             if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetState(SteamVR_Input_Sources.LeftHand); }
             else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
-
             if (rightStickClick)
             {
-
+                cam.transform.Find("Model").gameObject.SetActive(true);
+                cam.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                 cam.transform.localScale = new Vector3(.1f, .1f, .1f);
                 cam.transform.parent = null;
-                cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
-                cam.transform.Find("Model").gameObject.SetActive(true);
-                freecam = true;
-
-
             }
             if (FOV > 130)
             {
@@ -867,6 +872,7 @@ namespace strikercammod.mainmanager
             {
                 savepos();
             }
+
 
 
         }

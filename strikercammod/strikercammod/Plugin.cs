@@ -21,6 +21,7 @@ using UnityEngine.Assertions;
 using UnityEngine.Animations.Rigging;
 using GorillaExtensions;
 using UnityEngine.XR.Interaction.Toolkit;
+using strikercammod.buttons;
 
 namespace strikercammod
 {
@@ -76,8 +77,18 @@ namespace strikercammod
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
             PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
             PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
            
+
+           
+
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            if(PlayerPrefs.GetFloat("x") == 0f & PlayerPrefs.GetFloat("y") == 0f & PlayerPrefs.GetFloat("z") == 0f)
+            {
+                PlayerPrefs.SetFloat("x", 68.0681f);
+                PlayerPrefs.SetFloat("y", -12.1543f);
+                PlayerPrefs.SetFloat("z", 80.8426f);
+            }
             Camera.transform.position = new Vector3(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y"), PlayerPrefs.GetFloat("z"));
             Camera.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("rx"), PlayerPrefs.GetFloat("ry"), PlayerPrefs.GetFloat("rz"));
             camscreen = Camera.transform.Find("Model/Camera").gameObject;
