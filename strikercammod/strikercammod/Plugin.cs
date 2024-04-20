@@ -5,28 +5,17 @@ using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Utilla;
-using BepInEx.Configuration;
+
 using BepInEx;
 using strikercammod.mainmanager;
 using strikercammod.info;
-using GorillaNetworking;
-using Photon.Pun;
-using System.Collections;
-using UnityEngine.UI;
-using HarmonyLib;
+
 using System.Collections.Generic;
-using UnityEngine.Assertions;
-using UnityEngine.Animations.Rigging;
-using GorillaExtensions;
-using UnityEngine.XR.Interaction.Toolkit;
-using strikercammod.buttons;
+
 
 namespace strikercammod
 {
-    [ModdedGamemode]
-    [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
+
     [BepInPlugin(main.GUID, main.Name, main.Version)]
     public class Plugin : BaseUnityPlugin
     {
@@ -38,7 +27,7 @@ namespace strikercammod
         GameObject PCSCREEN;
         public List<GameObject> player;
         GameObject ThirdPersonCamera;
-
+        GorillaScoreBoard ScoreBoard;
 
 
         void OnEnable()
@@ -60,18 +49,21 @@ namespace strikercammod
         {
 
 
-            Utilla.Events.GameInitialized += OnGameInitialized;
+            GorillaTagger.OnPlayerSpawned(spawed);
         }
 
 
-        void OnGameInitialized(object sender, EventArgs e)
+        void spawed()
         {
+            
+            ScoreBoard = FindAnyObjectByType<GorillaScoreBoard>();
             ThirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera;
             PCSCREEN = GorillaTagger.Instance.thirdPersonCamera.transform.Find("Shoulder Camera").gameObject;
             Debug.Log("setting stuff up!");
             var bundle = LoadAssetBundle("strikercammod.Reasoure.cammod");
             Camera = bundle.LoadAsset<GameObject>("cammod");
             Camera = Instantiate(Camera);
+            Camera.SetActive(true);
             ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
             ThirdPersonCamera.transform.parent = Camera.transform;
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
@@ -153,6 +145,7 @@ namespace strikercammod
                 Camera.transform.parent = null;
                 
             }
+   
         }
 
 
@@ -179,23 +172,7 @@ namespace strikercammod
             stream.Close();
             return bundle;
         }
-        [ModdedGamemodeJoin]
-        public void OnJoin(string gamemode)
-        {
 
-            Debug.Log("JOINED");
-            FindAnyObjectByType<Manager>().addplayers();
-            FindAnyObjectByType<Manager>().inmoddedroom = true;
-            
-
-        }
-        [ModdedGamemodeLeave]
-        public void OnLeave(string gamemode)
-        {
-            FindAnyObjectByType<Manager>().Clear();
-        
-            FindAnyObjectByType<Manager>().inmoddedroom = false;
-        }
 
 
         // below is all code made by kyle the scientist

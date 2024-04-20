@@ -1,7 +1,7 @@
-﻿using HarmonyLib;
-using strikercammod.info;
+﻿using strikercammod.info;
 using System;
 using System.Reflection;
+using HarmonyLib;
 
 namespace strikercammod
 {
