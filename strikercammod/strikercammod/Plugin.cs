@@ -1,21 +1,16 @@
-﻿
-using Cinemachine;
+﻿using Cinemachine;
 using DevHoldableEngine;
 using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-
 using BepInEx;
 using strikercammod.mainmanager;
 using strikercammod.info;
-
 using System.Collections.Generic;
-
 
 namespace strikercammod
 {
-
     [BepInPlugin(main.GUID, main.Name, main.Version)]
     public class Plugin : BaseUnityPlugin
     {
@@ -29,14 +24,11 @@ namespace strikercammod
         GameObject ThirdPersonCamera;
         GorillaScoreBoard ScoreBoard;
 
-
         void OnEnable()
         {
             isenabled = true;
             redo();
             Debug.Log(isenabled);
-
-
         }
         void OnDisable()
         {
@@ -45,17 +37,10 @@ namespace strikercammod
             Debug.Log(isenabled);
         }
 
-        void Start()
-        {
-
-
-            GorillaTagger.OnPlayerSpawned(spawed);
-        }
-
-
+        void Start() =>  GorillaTagger.OnPlayerSpawned(spawed);
+        
         void spawed()
         {
-            
             ScoreBoard = FindAnyObjectByType<GorillaScoreBoard>();
             ThirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera;
             PCSCREEN = GorillaTagger.Instance.thirdPersonCamera.transform.Find("Shoulder Camera").gameObject;
@@ -69,11 +54,7 @@ namespace strikercammod
             Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
             PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
             PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-
-           
-
-           
-
+            
             Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             if(PlayerPrefs.GetFloat("x") == 0f & PlayerPrefs.GetFloat("y") == 0f & PlayerPrefs.GetFloat("z") == 0f)
             {
@@ -129,41 +110,31 @@ namespace strikercammod
                 Camera.transform.Find("Model/GameObject").gameObject.SetActive(true);
                Camera.GetComponent<Manager>().trailclcik = false;
             }
-
-
         }
         public void Update()
         {
-
-
              if(!Camera.transform.parent.gameObject.activeSelf)
-            {
-                
+            {               
                 Camera.transform.Find("Model").gameObject.SetActive(true);
                 Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                 Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
-                Camera.transform.parent = null;
-                
+                Camera.transform.parent = null;           
             }
-   
         }
-
-
+        
         void undosetup()
         {
             Debug.Log("disabled");
             ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = true;
             Camera.SetActive(false);
-
         }
+        
         void redo()
         {
             Debug.Log("enabled");
             ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
             Camera.SetActive(true);
-
         }
-
 
         public AssetBundle LoadAssetBundle(string path)
         {
@@ -172,15 +143,5 @@ namespace strikercammod
             stream.Close();
             return bundle;
         }
-
-
-
-        // below is all code made by kyle the scientist
-
-
-
-
     }
 }
-
-
