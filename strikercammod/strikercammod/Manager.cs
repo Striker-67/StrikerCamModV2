@@ -12,9 +12,7 @@ using TMPro;
 using Valve.VR;
 using static OVRPlugin;
 using UnityEngine.UI;
-
 using UnityEngine.Assertions; 
-
 using GorillaExtensions;
 using Steamworks;
 using System.Threading;
@@ -62,7 +60,6 @@ namespace strikercammod.mainmanager
 
         void Start()
         {
-
             IsSteamVR = Traverse.Create(PlayFabAuthenticator.instance).Field("platform").GetValue().ToString().ToLower() == "steam";
             Debug.Log("adding buttons!");
             firstpage = cam.transform.Find("Model/buttons/First Page").gameObject;
@@ -78,75 +75,37 @@ namespace strikercammod.mainmanager
             thirdpage = cam.transform.Find("Model/buttons/Third Page").gameObject;
             secondpage = cam.transform.Find("Model/buttons/Second Page").gameObject;
             Rigs = GameObject.Find("Player Objects/RigCache/Rig Parents");
-
-
-
-
-
+            
             foreach (BoxCollider g in firstpage.GetComponentsInChildren<BoxCollider>())
             {
-
-
-
-
                 g.gameObject.AddComponent<btnmanager>();
-
-
-
             }
             foreach (BoxCollider g in minisettings.GetComponentsInChildren<BoxCollider>())
             {
-
-
-
-
                 g.gameObject.AddComponent<btnmanager>();
-
-
-
             }
             foreach (BoxCollider g in secondpage.GetComponentsInChildren<BoxCollider>())
             {
-
-
-
-
                 g.gameObject.AddComponent<btnmanager>();
-
-
-
             }
             foreach (BoxCollider g in thirdpage.GetComponentsInChildren<BoxCollider>())
             {
-
-
-
-
                 g.gameObject.AddComponent<btnmanager>();
-
-
-
             }
             foreach (btnmanager g in firstpage.GetComponentsInChildren<btnmanager>())
             {
-
                 assetsloaded += 1;
                 check();
-
             }
             foreach (btnmanager g in secondpage.GetComponentsInChildren<btnmanager>())
             {
-
                 assetsloaded += 1;
                 check();
-
             }
             foreach (btnmanager g in thirdpage.GetComponentsInChildren<btnmanager>())
             {
-
                 assetsloaded += 1;
                 check();
-
             }
 
             nextpage.AddComponent<btnmanager>();
@@ -197,19 +156,9 @@ namespace strikercammod.mainmanager
                 nextpage.SetActive(true);
                 lastpage.SetActive(true);
                 Debug.Log("is done");
-
-
-               
-
-                // thanks lunakitty for the code
             }
         }
-
-
-
-
         
-
         public void Update()
         {
             if (!freecam)
@@ -222,8 +171,6 @@ namespace strikercammod.mainmanager
                 DevHoldableEngine.DevHoldable grabbing = FindAnyObjectByType<DevHoldableEngine.DevHoldable>();
                 grabbing.enabled = true;
             }
-
-
             
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             cam.GetComponentInChildren<Camera>().fieldOfView = FOV;
@@ -246,9 +193,6 @@ namespace strikercammod.mainmanager
                 FOV = 130;
             }
             minisettings.transform.Find("FOV/CUR FOV").GetComponent<TextMeshPro>().text = FOV.ToString();
-
-
-
         }
         private void setpos()
         {
@@ -260,15 +204,9 @@ namespace strikercammod.mainmanager
             CAMSCREEN.transform.localPosition = new Vector3(-0.633f, 0.847f, 0.002f);
             CAMSCREEN.transform.localRotation = Quaternion.Euler(0f, 262.4698f, 0f);
         }
-
-
-
-
-
-
+        
         public void clicked(string name)
         {
-         
             if (name == "for broxy")
             {
                 cam.transform.Find("Model/buttons/First Page/for broxy").GetComponent<AudioSource>().Play();
@@ -281,8 +219,7 @@ namespace strikercammod.mainmanager
                     PCSCREEN.transform.localRotation = Quaternion.Euler(0, 185.8334f, 0f);
                     CAMSCREEN.transform.localRotation = Quaternion.Euler(0f, 86.7389f, 0f);
                     CAMSCREEN.transform.localPosition = new Vector3(-0.633f, 2.7143f, 0.002f);
-                    flipclick = true;
-                   
+                    flipclick = true;     
                 }
                 else
                 {
@@ -292,7 +229,6 @@ namespace strikercammod.mainmanager
                     CAMSCREEN.transform.localRotation = Quaternion.Euler(0f, 262.4698f, 0f);
                     flipclick = false;
                 }
-                
             }
             else if (name == "Third Person Camera")
             {
@@ -310,7 +246,6 @@ namespace strikercammod.mainmanager
             }
             else if (name == "2D cam")
             {
-
                 Debug.Log("TPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
@@ -323,9 +258,7 @@ namespace strikercammod.mainmanager
                 PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else if(name == "trail")
-            {
-                
-             
+            {                         
                 if (!trailclcik)
                 {
                     PlayerPrefs.SetString("trail", "false");
@@ -341,7 +274,6 @@ namespace strikercammod.mainmanager
             }
             else if (name == "Front Cam")
             {
-
                 Debug.Log("TPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
@@ -355,7 +287,6 @@ namespace strikercammod.mainmanager
             }
             else if (name == "Doug Cam")
             {
-
                 Debug.Log("TPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
@@ -369,7 +300,6 @@ namespace strikercammod.mainmanager
             }
             else if (name == "First person cam")
             {
-
                 Debug.Log("FPC hit");
                 freecam = false;
                 cam.transform.Find("Model").gameObject.SetActive(false);
@@ -401,13 +331,10 @@ namespace strikercammod.mainmanager
                     secondpage.SetActive(false);
                     thirdpage.SetActive(false);
                 }
-
-
             }
 
             else if (name == "Last Page")
             {
-
                 if (secondpage.active)
                 {
                     firstpage.SetActive(true);
@@ -461,9 +388,6 @@ namespace strikercammod.mainmanager
             {
                 savepos();
             }
-
-
-
         }
         private void savepos()
         {
@@ -474,18 +398,5 @@ namespace strikercammod.mainmanager
             PlayerPrefs.SetFloat("ry", cam.transform.rotation.eulerAngles.y);
             PlayerPrefs.SetFloat("rz", cam.transform.rotation.eulerAngles.z);
         }
-
-
-
-
     }
 }
-   
-
-
-            
-            
-        
-    
-    
-
