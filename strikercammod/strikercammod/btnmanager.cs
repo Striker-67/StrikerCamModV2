@@ -19,17 +19,15 @@ namespace strikercammod.buttons
                 manager.assetsloaded += 1;
                 manager.check();
             }
-           
-
+            
             onPressButton = new UnityEngine.Events.UnityEvent();
             onPressButton.AddListener(new UnityEngine.Events.UnityAction(ButtonActivation));
-
         }
 
         public void ButtonActivation()
         {
             isOn = !isOn;
-
+            
             Manager manager = FindAnyObjectByType<Manager>();
             manager.clicked(this.gameObject.name);
         }
