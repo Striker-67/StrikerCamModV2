@@ -134,17 +134,20 @@ namespace strikercammod
         }
         public void Update()
         {
-
-
-             if(!Camera.transform.parent.gameObject.activeSelf)
+            if(Camera.transform.parent != null)
             {
-                
-                Camera.transform.Find("Model").gameObject.SetActive(true);
-                Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
-                Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
-                Camera.transform.parent = null;
-                
+                if (!Camera.transform.parent.gameObject.activeSelf)
+                {
+
+                    Camera.transform.Find("Model").gameObject.SetActive(true);
+                    Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
+                    Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
+                    Camera.transform.parent = null;
+
+                }
             }
+
+            
    
         }
 
