@@ -143,6 +143,7 @@ namespace strikercammod
                     Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                     Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
                     Camera.transform.parent = null;
+                   
 
                 }
             }

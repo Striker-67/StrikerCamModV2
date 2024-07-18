@@ -309,6 +309,7 @@ namespace strikercammod.mainmanager
                 cam.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                 cam.transform.localScale = new Vector3(.1f, .1f, .1f);
                 cam.transform.parent = null;
+                freecam = true;
             }
             if (FOV > 130)
             {
