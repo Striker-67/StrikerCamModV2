@@ -28,7 +28,7 @@ namespace strikercammod.buttons
 
         public void ButtonActivation()
         {
-            isOn = !isOn;
+           
 
             Manager manager = FindAnyObjectByType<Manager>();
             manager.clicked(this.gameObject.name);

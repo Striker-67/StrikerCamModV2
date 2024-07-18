@@ -368,7 +368,7 @@ namespace strikercammod.mainmanager
                 }
 
             }
-            /*  else if (name == "Third Person Camera")
+              else if (name == "Third Person Camera")
               {
                   Debug.Log("TPC hit");
                   freecam = false;
@@ -383,7 +383,7 @@ namespace strikercammod.mainmanager
                   PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
 
              }   
-            */
+         
         
 
             else if (name == "2D cam")
