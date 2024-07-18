@@ -28,7 +28,7 @@ namespace strikercammod
         public List<GameObject> player;
         GameObject ThirdPersonCamera;
         GorillaScoreBoard ScoreBoard;
-
+        static bool inmoddedroom;
 
         void OnEnable()
         {
@@ -134,7 +134,7 @@ namespace strikercammod
         }
         public void Update()
         {
-            if(Camera.transform.parent != null)
+            if (Camera.transform.parent != null)
             {
                 if (!Camera.transform.parent.gameObject.activeSelf)
                 {
@@ -143,13 +143,25 @@ namespace strikercammod
                     Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                     Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
                     Camera.transform.parent = null;
-                   
+
 
                 }
             }
+            if (!ScoreBoard.initialGameMode.Contains("MODDED"))
+            {
+                transform.Find("Model/buttons/Second Page/1").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Second Page/2").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Second Page/3").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Second Page/4").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Second Page/5").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Second Page/6").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Third Page/7").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Third Page/8").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Third Page/9").gameObject.SetActive(false);
+                transform.Find("Model/buttons/Third Page/10").gameObject.SetActive(false);
+            }
 
-            
-   
+
         }
 
 

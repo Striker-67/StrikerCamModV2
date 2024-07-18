@@ -297,7 +297,7 @@ namespace strikercammod.mainmanager
         public void Update()
         {
 
-            
+            if()
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             cam.GetComponentInChildren<Camera>().fieldOfView = FOV;
             CAMSCREEN.GetComponentInChildren<Camera>().fieldOfView = FOV;
