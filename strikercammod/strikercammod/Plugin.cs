@@ -11,48 +11,44 @@ using strikercammod.mainmanager;
 using strikercammod.info;
 
 using System.Collections.Generic;
-<<<<<<< Updated upstream
 using GorillaNetworking;
 using Photon.Pun;
-=======
-using strikercammod.buttons;
-using TMPro;
->>>>>>> Stashed changes
 
 namespace strikercammod
 {
+
     [BepInPlugin(main.GUID, main.Name, main.Version)]
     public class Plugin : BaseUnityPlugin
     {
+        bool inRoom;
         bool isenabled = true;
         public GameObject vrrigs;
-        public static GameObject cam;
+        GameObject Camera;
+        GameObject camscreen;
         GameObject PCSCREEN;
         public List<GameObject> player;
         GameObject ThirdPersonCamera;
-<<<<<<< Updated upstream
         GorillaScoreBoard ScoreBoard;
         static bool inmoddedroom;
 
-=======
->>>>>>> Stashed changes
         void OnEnable()
         {
             isenabled = true;
+            redo();
             Debug.Log(isenabled);
+
+
         }
         void OnDisable()
         {
             isenabled = false;
+            undosetup();
             Debug.Log(isenabled);
         }
 
         void Start()
         {
-<<<<<<< Updated upstream
            
-=======
->>>>>>> Stashed changes
             GorillaTagger.OnPlayerSpawned(spawed);
             ZoneManagement.instance.onZoneChanged += zonechanged;
         }
@@ -60,100 +56,101 @@ namespace strikercammod
 
         void spawed()
         {
+            
+            ScoreBoard = FindAnyObjectByType<GorillaScoreBoard>();
             ThirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera;
             PCSCREEN = GorillaTagger.Instance.thirdPersonCamera.transform.Find("Shoulder Camera").gameObject;
             Debug.Log("setting stuff up!");
-            var bundle = LoadAssetBundle("strikercammod.Reasoure.cam_mod");
-            cam = bundle.LoadAsset<GameObject>("cam_mod");
-            cam = Instantiate(cam);
-            cam.SetActive(true);
+            var bundle = LoadAssetBundle("strikercammod.Reasoure.cammod");
+            Camera = bundle.LoadAsset<GameObject>("cammod");
+            Camera = Instantiate(Camera);
+            Camera.SetActive(true);
             ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
-            ThirdPersonCamera.transform.parent = cam.transform;
-            ThirdPersonCamera.transform.localPosition = new Vector3(0.0231f, - 0.0191f, - 0.0103f);
-            ThirdPersonCamera.transform.localRotation = Quaternion.Euler(4.2888f, 266.9108f, 271.8853f);
-            PCSCREEN.transform.localPosition = new Vector3(-0.4301f, 0.8753f, 1.8582f);
-            PCSCREEN.transform.localRotation = Quaternion.Euler(359.2005f, 356.2808f, 357.8461f);
-            cam.AddComponent<Manager>();
-            transform.localScale = new Vector3(1.9491f, 7.0782f, 5.9655f);
-            cam.AddComponent<DevHoldable>().camera = cam;
-            if(!PlayerPrefs.HasKey("posX"))
+            ThirdPersonCamera.transform.parent = Camera.transform;
+            Destroy(Camera.transform.Find("Model/Camera").gameObject.GetComponent<AudioListener>());
+            PCSCREEN.transform.localPosition = new Vector3(68.0681f, -12.1543f, 80.8426f);
+            PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+           
+
+           
+
+            Camera.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            if(PlayerPrefs.GetFloat("x") == 0f & PlayerPrefs.GetFloat("y") == 0f & PlayerPrefs.GetFloat("z") == 0f)
             {
-                cam.transform.position = new Vector3(-68.7146f, 11.9877f, -82.6656f);
-                cam.transform.rotation = Quaternion.Euler(270f, 189.6795f, 0f);
-                cam.transform.FindChildRecursive("current pos").GetComponent<TextMeshPro>().text = "-68.7146 " + "11.9877 " + "-82.6656 ";
+                PlayerPrefs.SetFloat("x", 68.0681f);
+                PlayerPrefs.SetFloat("y", -12.1543f);
+                PlayerPrefs.SetFloat("z", 80.8426f);
+            }
+            Camera.transform.position = new Vector3(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y"), PlayerPrefs.GetFloat("z"));
+            Camera.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("rx"), PlayerPrefs.GetFloat("ry"), PlayerPrefs.GetFloat("rz"));
+            camscreen = Camera.transform.Find("Model/Camera").gameObject;
+            if (!isenabled)
+            {
+                undosetup();
             }
             else
             {
-                cam.transform.position = new Vector3(PlayerPrefs.GetFloat("posX"), PlayerPrefs.GetFloat("posY"), PlayerPrefs.GetFloat("posZ"));
-                cam.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("rotX"), PlayerPrefs.GetFloat("rotY"), PlayerPrefs.GetFloat("rotZ"));
-                cam.transform.FindChildRecursive("current pos").GetComponent<TextMeshPro>().text = PlayerPrefs.GetFloat("posX").ToString() +" " + PlayerPrefs.GetFloat("posY").ToString() + " " + PlayerPrefs.GetFloat("posZ").ToString();
+                redo();
             }
-           
+
+            Camera.AddComponent<DevHoldable>().camera = Camera;
+            Camera.AddComponent<Manager>().cam = Camera;
+            Camera.GetComponent<Manager>().PCSCREEN = PCSCREEN;
+            Camera.GetComponent<Manager>().CAMSCREEN = camscreen;
+            if (Camera.GetComponent<Manager>() != null)
+            {
+                Debug.Log("added manager");
+            }
+            if(PlayerPrefs.GetString("color") == "Color.black")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.red")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.green")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            if (PlayerPrefs.GetString("color") == "Color.blue")
+            {
+                Camera.transform.Find("Model/Camera 1/Cube").gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+            }
+            if (PlayerPrefs.GetString("trail") == "false")
+            {
+                PlayerPrefs.SetString("trail", "false");
+                Camera.transform.Find("Model/GameObject").gameObject.SetActive(false);
+                Camera.GetComponent<Manager>().trailclcik = true;
+            }
+            else
+            {
+                PlayerPrefs.SetString("trail", "true");
+                Camera.transform.Find("Model/GameObject").gameObject.SetActive(true);
+               Camera.GetComponent<Manager>().trailclcik = false;
+            }
+
+
         }
-
-
         public void Update()
         {
-<<<<<<< Updated upstream
            
             try
             {
                 if (Camera.transform.parent != null)
-=======
-            try
-            {
-                if(cam.transform.parent != null)
->>>>>>> Stashed changes
                 {
                     if (!Camera.transform.parent.gameObject.activeSelf)
                     {
 
-<<<<<<< Updated upstream
                         Camera.transform.Find("Model").gameObject.SetActive(true);
                         Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
                         Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
                         Camera.transform.parent = null;
 
 
-=======
-                    if (!cam.transform.parent.gameObject.activeSelf)
-                    {
-                        if (cam.transform.GetComponent<Manager>() == null)
-                        {
-                            Manager.InMode = false;
-                        }
-                        cam.transform.parent = null;
-                        cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
-                        cam.transform.rotation = Quaternion.Euler(270.7868f, 180.3345f, 180f);
-                        cam.transform.localScale = new Vector3(3.02721024f, 12.5924244f, 9.46782017f);
-                        cam.transform.Find("Model").gameObject.SetActive(true);
-                        cam.transform.Find("Buttons").gameObject.SetActive(true);
-                        cam.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
-                        GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(0.0231f, -0.0191f, -0.0103f);
-                        GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(4.2888f, 266.9108f, 271.8853f);
-                        PCSCREEN.transform.localPosition = new Vector3(-0.4301f, 0.8753f, 1.8582f);
-                        PCSCREEN.transform.localRotation = Quaternion.Euler(359.2005f, 356.2808f, 357.8461f);
->>>>>>> Stashed changes
                     }
                 }
-                if(cam.transform.GetComponent<Manager>() != null)
-                {
-                    if (Manager.InMode)
-                    {
-                        cam.GetComponent<DevHoldable>().enabled = false;
-                    }
-                    else
-                    {
-                        cam.GetComponent<DevHoldable>().enabled = true;
-                    }
-                }
-                
-
-
-            }
-            catch
-            {
-                Debug.Log("what the sigma?");
             }
             catch
             {
@@ -162,7 +159,6 @@ namespace strikercammod
             try
             {
 
-<<<<<<< Updated upstream
                 if (PhotonNetwork.InRoom)
                 {
                     if (!PhotonNetworkController.Instance.currentJoinTrigger.GetFullDesiredGameModeString().Contains("MODDED"))
@@ -211,10 +207,6 @@ namespace strikercammod
         }
 
 
-=======
-        }
-
->>>>>>> Stashed changes
         public AssetBundle LoadAssetBundle(string path)
         {
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
@@ -222,6 +214,14 @@ namespace strikercammod
             stream.Close();
             return bundle;
         }
+
+
+
+        // below is all code made by kyle the scientist
+
+
+
+
     }
 }
 
