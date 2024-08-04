@@ -83,8 +83,9 @@ namespace strikercammod.mainmanager
             thirdpage = cam.transform.Find("Model/buttons/Third Page").gameObject;
             secondpage = cam.transform.Find("Model/buttons/Second Page").gameObject;
             players = new List<GameObject>();
-           
 
+            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetState(SteamVR_Input_Sources.LeftHand); }
+            else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
 
 
             foreach (BoxCollider g in firstpage.GetComponentsInChildren<BoxCollider>())
@@ -301,8 +302,8 @@ namespace strikercammod.mainmanager
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             cam.GetComponentInChildren<Camera>().fieldOfView = FOV;
             CAMSCREEN.GetComponentInChildren<Camera>().fieldOfView = FOV;
-            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_LeftJoystickClick.GetState(SteamVR_Input_Sources.LeftHand); }
-            else { ControllerInputPoller.instance.leftControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
+            if (IsSteamVR) { rightStickClick = SteamVR_Actions.gorillaTag_RightJoystickClick.GetState(SteamVR_Input_Sources.RightHand); }
+            else { ControllerInputPoller.instance.rightControllerDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out rightStickClick); }
             if (rightStickClick)
             {
                 cam.transform.Find("Model").gameObject.SetActive(true);

@@ -11,7 +11,8 @@ using strikercammod.mainmanager;
 using strikercammod.info;
 
 using System.Collections.Generic;
-
+using GorillaNetworking;
+using Photon.Pun;
 
 namespace strikercammod
 {
@@ -47,9 +48,9 @@ namespace strikercammod
 
         void Start()
         {
-
-
+           
             GorillaTagger.OnPlayerSpawned(spawed);
+            ZoneManagement.instance.onZoneChanged += zonechanged;
         }
 
 
@@ -134,37 +135,62 @@ namespace strikercammod
         }
         public void Update()
         {
-            if (Camera.transform.parent != null)
+           
+            try
             {
-                if (!Camera.transform.parent.gameObject.activeSelf)
+                if (Camera.transform.parent != null)
                 {
+                    if (!Camera.transform.parent.gameObject.activeSelf)
+                    {
 
-                    Camera.transform.Find("Model").gameObject.SetActive(true);
-                    Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
-                    Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
-                    Camera.transform.parent = null;
+                        Camera.transform.Find("Model").gameObject.SetActive(true);
+                        Camera.transform.position = GorillaTagger.Instance.headCollider.transform.position;
+                        Camera.transform.localScale = new Vector3(.1f, .1f, .1f);
+                        Camera.transform.parent = null;
 
 
+                    }
                 }
             }
-            if (!ScoreBoard.initialGameMode.Contains("MODDED"))
+            catch
             {
-                transform.Find("Model/buttons/Second Page/1").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Second Page/2").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Second Page/3").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Second Page/4").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Second Page/5").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Second Page/6").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Third Page/7").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Third Page/8").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Third Page/9").gameObject.SetActive(false);
-                transform.Find("Model/buttons/Third Page/10").gameObject.SetActive(false);
+                Debug.Log("error with return to sender");
             }
+            try
+            {
 
-
+                if (PhotonNetwork.InRoom)
+                {
+                    if (!PhotonNetworkController.Instance.currentJoinTrigger.GetFullDesiredGameModeString().Contains("MODDED"))
+                    {
+                        
+                        Camera.transform.Find("Model/buttons/Second Page/1").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Second Page/2").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Second Page/3").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Second Page/4").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Second Page/5").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Second Page/6").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Third Page/7").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Third Page/8").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Third Page/9").gameObject.SetActive(false);
+                        Camera.transform.transform.Find("Model/buttons/Third Page/10").gameObject.SetActive(false);
+                    }
+                  
+                }
+                
+            }
+            catch
+            {
+                Debug.Log("Error with modded check");
+            }
+                
         }
 
-
+        void zonechanged()
+        {
+            Debug.Log("Zone Change");
+            ScoreBoard = FindAnyObjectByType<GorillaScoreBoard>();
+        }
         void undosetup()
         {
             Debug.Log("disabled");
