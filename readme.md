@@ -11,7 +11,7 @@ doug cam
 
 right stick(once in any mode ex. thrid person etc brings back to your body)
 
-hold Grip near camera to grab
+hold Trigger near camera to grab
 
 # download 
 downlod from releases and then put dll into your plugin folder
