@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Reasoure\cammod" />
+    <None Remove="Reasoure\cam_mod" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Reasoure\cammod" />
+    <EmbeddedResource Include="Reasoure\cam_mod" />
   </ItemGroup>
 
   <ItemGroup>

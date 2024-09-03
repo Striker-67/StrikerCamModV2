@@ -20,10 +20,9 @@ namespace DevHoldableEngine
         public GameObject camera;
         public virtual void OnGrab(bool isLeft)
         {
-            
+
             camera.transform.Find("Model").gameObject.SetActive(true);
-            camera.transform.localScale = new Vector3(.1f, .1f, .1f);
-           
+            camera.transform.localScale = new Vector3(3.02721024f, 12.5924244f, 9.46782017f);
         }
 
         public virtual void OnDrop(bool isLeft)
@@ -33,10 +32,10 @@ namespace DevHoldableEngine
 
         public void Update()
         {
-            float left = ControllerInputPoller.instance.leftControllerGripFloat;
+            float left = ControllerInputPoller.instance.leftControllerIndexFloat;
             bool leftGrip = left >= 0.5f;
 
-            float right = ControllerInputPoller.instance.rightControllerGripFloat;
+            float right = ControllerInputPoller.instance.rightControllerIndexFloat;
             bool rightGrip = right >= 0.5f;
 
             var Distance = GrabDistance * Player.Instance.scale;
