@@ -283,8 +283,12 @@ namespace strikercammod.mainmanager
         public void GetPlayers()
         {
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
          
+=======
+            if()
+>>>>>>> parent of f027118 (fpc readded)
             GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>().fieldOfView = FOV;
             cam.GetComponentInChildren<Camera>().fieldOfView = FOV;
             CAMSCREEN.GetComponentInChildren<Camera>().fieldOfView = FOV;
@@ -422,6 +426,7 @@ namespace strikercammod.mainmanager
                 }
 
             }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             else if (name == "First person cam")
             {
@@ -438,6 +443,9 @@ namespace strikercammod.mainmanager
                 PCSCREEN.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else if (name == "Third Person Camera")
+=======
+              else if (name == "Third Person Camera")
+>>>>>>> parent of f027118 (fpc readded)
               {
                   Debug.Log("TPC hit");
                   freecam = false;
