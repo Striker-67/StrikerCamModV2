@@ -1,0 +1,164 @@
+﻿
+using Unity.Cinemachine;
+using DevHoldableEngine;
+using System;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
+
+using BepInEx;
+using strikercammod.mainmanager;
+using strikercammod.info;
+
+using System.Collections.Generic;
+using GorillaNetworking;
+using Photon.Pun;
+using strikercammod.buttons;
+using TMPro;
+
+namespace strikercammod
+{
+    [BepInPlugin(main.GUID, main.Name, main.Version)]
+    public class Plugin : BaseUnityPlugin
+    {
+        bool isenabled = true;
+        public GameObject vrrigs;
+        public static GameObject cam;
+        GameObject PCSCREEN;
+        public List<GameObject> player;
+        GameObject ThirdPersonCamera;
+        GorillaScoreBoard ScoreBoard;
+        static bool inmoddedroom;
+
+        void OnEnable()
+        {
+            isenabled = true;
+            Debug.Log(isenabled);
+        }
+        void OnDisable()
+        {
+            isenabled = false;
+            Debug.Log(isenabled);
+        }
+
+        void Start()
+        {
+            GorillaTagger.OnPlayerSpawned(spawed);
+            ZoneManagement.instance.onZoneChanged += zonechanged;
+        }
+
+
+        void spawed()
+        {
+            ThirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera;
+            PCSCREEN = GorillaTagger.Instance.thirdPersonCamera.transform.Find("Shoulder Camera").gameObject;
+            Debug.Log("setting stuff up!");
+            var bundle = LoadAssetBundle("strikercammod.Reasoure.cam_mod");
+            cam = bundle.LoadAsset<GameObject>("cam_mod");
+            cam = Instantiate(cam);
+            cam.SetActive(true);
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
+            ThirdPersonCamera.transform.parent = cam.transform;
+            ThirdPersonCamera.transform.localPosition = new Vector3(0.0231f, -0.0191f, -0.0103f);
+            ThirdPersonCamera.transform.localRotation = Quaternion.Euler(4.2888f, 266.9108f, 271.8853f);
+            PCSCREEN.transform.localPosition = new Vector3(-0.4301f, 0.8753f, 1.8582f);
+            PCSCREEN.transform.localRotation = Quaternion.Euler(359.2005f, 356.2808f, 357.8461f);
+            cam.AddComponent<Manager>();
+            transform.localScale = new Vector3(1.9491f, 7.0782f, 5.9655f);
+            cam.AddComponent<DevHoldable>().camera = cam;
+            if (!PlayerPrefs.HasKey("posX"))
+            {
+                cam.transform.position = new Vector3(-68.7146f, 11.9877f, -82.6656f);
+                cam.transform.rotation = Quaternion.Euler(270f, 189.6795f, 0f);
+                cam.transform.FindChildRecursive("current pos").GetComponent<TextMeshPro>().text = "-68.7146 " + "11.9877 " + "-82.6656 ";
+            }
+            else
+            {
+                cam.transform.position = new Vector3(PlayerPrefs.GetFloat("posX"), PlayerPrefs.GetFloat("posY"), PlayerPrefs.GetFloat("posZ"));
+                cam.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("rotX"), PlayerPrefs.GetFloat("rotY"), PlayerPrefs.GetFloat("rotZ"));
+                cam.transform.FindChildRecursive("current pos").GetComponent<TextMeshPro>().text = PlayerPrefs.GetFloat("posX").ToString() + " " + PlayerPrefs.GetFloat("posY").ToString() + " " + PlayerPrefs.GetFloat("posZ").ToString();
+            }
+
+        }
+
+
+        public void Update()
+        {
+
+            try
+            {
+                if (cam.transform.parent != null)
+                {
+                    if (!cam.transform.parent.gameObject.activeSelf)
+                    {
+
+                        cam.transform.Find("Model").gameObject.SetActive(true);
+                        cam.transform.position = GorillaTagger.Instance.headCollider.transform.position;
+                        cam.transform.localScale = new Vector3(.1f, .1f, .1f);
+                        cam.transform.parent = null;
+
+                        if (!cam.transform.parent.gameObject.activeSelf)
+                        {
+                            if (cam.transform.GetComponent<Manager>() == null)
+                            {
+                                Manager.InMode = false;
+                            }
+                            cam.transform.parent = null;
+                            cam.transform.position = GorillaTagger.Instance.mainCamera.transform.position;
+                            cam.transform.rotation = Quaternion.Euler(270.7868f, 180.3345f, 180f);
+                            cam.transform.localScale = new Vector3(3.02721024f, 12.5924244f, 9.46782017f);
+                            cam.transform.Find("Model").gameObject.SetActive(true);
+                            cam.transform.Find("Buttons").gameObject.SetActive(true);
+                            cam.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                            GorillaTagger.Instance.thirdPersonCamera.transform.localPosition = new Vector3(0.0231f, -0.0191f, -0.0103f);
+                            GorillaTagger.Instance.thirdPersonCamera.transform.localRotation = Quaternion.Euler(4.2888f, 266.9108f, 271.8853f);
+                            PCSCREEN.transform.localPosition = new Vector3(-0.4301f, 0.8753f, 1.8582f);
+                            PCSCREEN.transform.localRotation = Quaternion.Euler(359.2005f, 356.2808f, 357.8461f);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Debug.Log("error with return to sender");
+            }
+
+
+
+        }
+
+        void zonechanged()
+        {
+            Debug.Log("Zone Change");
+            ScoreBoard = FindAnyObjectByType<GorillaScoreBoard>();
+        }
+        void undosetup()
+        {
+            Debug.Log("disabled");
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = true;
+            cam.SetActive(false);
+
+        }
+        void redo()
+        {
+            Debug.Log("enabled");
+            ThirdPersonCamera.GetComponentInChildren<CinemachineBrain>().enabled = false;
+            cam.SetActive(true);
+
+        }
+
+
+        public AssetBundle LoadAssetBundle(string path)
+        {
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+            AssetBundle bundle = AssetBundle.LoadFromStream(stream);
+            stream.Close();
+            return bundle;
+        }
+    }
+
+
+
+}
+
+
